@@ -9,17 +9,17 @@
 
 module add UHTS/Quality_control/fastqc/0.11.9
 
-#define and create directories
 parent_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
-fastq_dir=$parent_dir/fastq_files
+
+#define and create result directory
 res_dir=$parent_dir/QCres
-mkdir $fastq_dir
 mkdir $res_dir
 
-#link fastq raw data in a separate folder
-ln -s /data/courses/rnaseq_course/lncRNAs/fastq/1* $fastq_dir
-ln -s /data/courses/rnaseq_course/lncRNAs/fastq/P* $fastq_dir
+#link fastq raw data in a separate folder; only necessary if not already linked
+# fastq_dir=$parent_dir/fastq_files
+# mkdir $fastq_dir
+# ln -s /data/courses/rnaseq_course/lncRNAs/fastq/1* $fastq_dir
+# ln -s /data/courses/rnaseq_course/lncRNAs/fastq/P* $fastq_dir
 
 #run fastq on the linked fastq files
 fastqc -t 2 -o $res_dir $fastq_dir/*.fastq.gz
-
