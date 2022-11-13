@@ -6,7 +6,7 @@ Roman Schwob (roman.schwob@students.unibe.ch)
 
 This project is part of the course "RNA sequencing" (467713) of the University of Bern, taking place in Fall Semester 2022.
 
-As part of group 1, I am analysing the reads of the following cell lines:
+As part of group 1, I am analyzing the reads of the following cell lines:
 
 --- --- --- --- --- --- --- ---  --- --- 
 
@@ -16,8 +16,8 @@ Holoclonal = 1.1, 1.2, 1.5
     1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz
     1_1_L3_R2_001_qyjToP2TB6N7.fastq.gz
     
-    1_2_L3_R2_001_SNLaVsTQ6pwl.fastq.gz
     1_2_L3_R1_001_DnNWKUYhfc9S.fastq.gz
+    1_2_L3_R2_001_SNLaVsTQ6pwl.fastq.gz
     
     1_5_L3_R1_001_iXvvRzwmFxF3.fastq.gz
     1_5_L3_R2_001_iXCMrktKyEh0.fastq.gz
