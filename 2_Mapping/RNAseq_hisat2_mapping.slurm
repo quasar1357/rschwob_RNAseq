@@ -16,13 +16,13 @@ fastq_dir=$parent_dir/fastq_files
 sample_fwd=$fastq_dir/P1_L3_R1*.fastq.gz
 sample_rev=$fastq_dir/P1_L3_R2*.fastq.gz
 
-ref_dir=$parent_dir/ref_genome
+ref_dir=/data/courses/rnaseq_course/lncRNAs/Project1/references
 ref_genome=$ref_dir/*
 
 out_dir=$parent_dir/2_Mapping/hisat2_out
 out_file=$out_dir/P1_hisat2.sam
 
-hisat2 -p 8 --dta -x $ref_genome -1 $sample_fwd -2 $sample_rev -S $out_file -u 50
+hisat2 -p 8 --dta -x $ref_genome -1 $sample_fwd -2 $sample_rev -S $out_file
 # Options entered here are:
 # ‘-p 8’ denoting the use of 8 threads
 # ‘–dta’ is used to generate output SAM files that can be directly read into StringTie
