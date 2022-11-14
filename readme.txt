@@ -11,6 +11,7 @@ As part of group 1, I am analyzing the reads of the following cell lines:
 --- --- --- --- --- --- --- ---  --- --- 
 
 Holoclonal = 1.1, 1.2, 1.5
+
     Files:
    
     1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz
@@ -23,6 +24,7 @@ Holoclonal = 1.1, 1.2, 1.5
     1_5_L3_R2_001_iXCMrktKyEh0.fastq.gz
 
 Parental = P1, P2, P3
+
     Files:
     
     P1_L3_R1_001_9L0tZ86sF4p8.fastq.gz
@@ -38,32 +40,54 @@ Parental = P1, P2, P3
 --- --- --- --- --- --- --- ---  --- --- 
 
 
-General steps:
+Overview:
 
 1) Read quality and statistics
-    Input: fastq files of reads (see above)
+    Goal: How many reads do you have for each replicate? How is the quality of these reads?
+    Software: FASTQC
+    Script: RNAseq_QC.slurm (and RNAseq_NumReads.slurm)
+    Input: fastq files (see above)
     Outputs: results of fastQC (folder QCres), text file with number reads for confirmation
 
 2) Read mapping
-    Input: 
+    Goal: What are the alignment rates for your samples?
+    Software: HISAT2 (alternative = STAR)
+    Reference: Human genome version hg38/GRCh38, index generated using HISAT2
+    Script: RNAseq_hisat2_mapping.slurm
+    Input: fastq files, forward and reverse each replicate
     Output: BAM file for every replicate
 
 3) Transcriptome assembly
+    Goal: How many exons, transcripts and genes are in your meta-assembly? How many of these are novel, i.e. do not have an associated GENCODE identifier? How many transcripts and genes are composed of just a single exon?
+    Software: StringTie or Scallop
+    Script:
     Input: 
     Output: One meta-assembly GTF format file
 
 4) Quantification
+    Goal: What units of expression are you using? Does the entire expression level across all genes add up to the expected amount? How many transcripts and genes did you detect? How many novel transcripts and genes did you detect?
+    Software: htseq-count or Kallisto
+    Script:
     Input: 
     Output: Transcript and gene level expression tables
 
 5) Differential expression
+    Goal: Do known/expected genes change as expected?
+    Software: DESeq2 or Sleuth
+    Script:
     Input: 
     Output: Transcript- and gene-level differential expression tables
 
 6) Integrative analysis
+    Goal: How good are the 5’ and 3’ annotations of your transcripts? What percent of your novel transcripts are protein coding? How many novel “intergenic” genes have you identified?
+    Software: CPAT or CPC
+    Script:
     Input: 
     Output: Statistics and plots addressing key questions
 
 7) Prioritization (Optional)
+    Goal: How would you prioritize your data to provide her with a ranked list of candidates?
+    Software:
+    Script:
     Input: 
     Output: Ranked list of gene candidates
