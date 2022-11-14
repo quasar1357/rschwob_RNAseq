@@ -1,0 +1,61 @@
+Settings:
+  Output files: "genome.*.ht2"
+  Line rate: 6 (line is 64 bytes)
+  Lines per side: 1 (side is 64 bytes)
+  Offset rate: 4 (one in 16)
+  FTable chars: 10
+  Strings: unpacked
+  Local offset rate: 3 (one in 8)
+  Local fTable chars: 6
+  Local sequence length: 57344
+  Local sequence overlap between two consecutive indexes: 1024
+  Endianness: little
+  Actual local endianness: little
+  Sanity checking: disabled
+  Assertions: disabled
+  Random seed: 0
+  Sizeofs: void*:8, int:4, long:8, size_t:8
+Input files DNA, FASTA:
+  /data/courses/rnaseq_course/lncRNAs/Project1/references/GRCh38.genome.fa
+Reading reference sizes
+  Time reading reference sizes: 00:00:40
+Calculating joined length
+Writing header
+Reserving space for joined string
+Joining reference sequences
+  Time to join reference sequences: 00:00:31
+  Time to read SNPs and splice sites: 00:00:00
+Using parameters --bmax 35734170 --dcv 1024
+  Doing ahead-of-time memory usage test
+  Passed!  Constructing with these parameters: --bmax 35734170 --dcv 1024
+Constructing suffix-array element generator
+Building DifferenceCoverSample
+  Building sPrime
+  Building sPrimeOrder
+  V-Sorting samples
+  V-Sorting samples time: 00:00:52
+  Allocating rank array
+  Ranking v-sort output
+  Ranking v-sort output time: 00:00:17
+  Invoking Larsson-Sadakane on ranks
+  Invoking Larsson-Sadakane on ranks time: 00:00:41
+  Sanity-checking and returning
+Building samples
+Reserving space for 172 sample suffixes
+Generating random suffixes
+QSorting 172 sample offsets, eliminating duplicates
+QSorting sample offsets, eliminating duplicates time: 00:00:00
+Multikey QSorting 172 samples
+  (Using difference cover)
+  Multikey QSorting samples time: 00:00:00
+Calculating bucket sizes
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Split 22, merged 72; iterating...
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Split 8, merged 13; iterating...
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Split 6, merged 5; iterating...
+slurmstepd: error: *** JOB 9509284 ON binfservas07 CANCELLED AT 2022-11-14T15:38:07 ***
