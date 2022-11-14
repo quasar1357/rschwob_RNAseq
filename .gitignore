@@ -1,3 +1,3 @@
-ref_genome/GRCh38.genome.fa
-ref_genome/gencode.v21.chr_patch_hapl_scaff.annotation.gtf.gz
+ref_genome/
+fastq_files/
 2_Mapping/hisat2_out/P1_hisat2.sam
