@@ -1,5 +1,5 @@
 .OLD/
-ref_genome/
+references/
 fastq_files/
 script_inputs/
 script_outputs/
