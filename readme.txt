@@ -54,6 +54,7 @@ Overview:
     Software: HISAT2 (alternative = STAR)
     Reference: Human genome version hg38/GRCh38, index generated using HISAT2
         Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
+        Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
     Script: RNAseq_hisat2_mapping.slurm
     Input: fastq files, forward and reverse each replicate
     Output: BAM file for every replicate
@@ -64,6 +65,8 @@ Overview:
             How many transcripts and genes are composed of just a single exon?
     Software: StringTie (or Scallop)
     Script:
+    Input: 6 BAM files (1 of each cell line)
+    Output: One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
     Input: 6 BAM files (1 of each cell line)
     Output: One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
 
