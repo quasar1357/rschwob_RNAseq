@@ -14,7 +14,7 @@ module add UHTS/Aligner/hisat/2.2.1
 
 # Define (and create) input and output directories
 course_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
-ref_idx_dir=${course_dir}/results/2_Map_1_Index_RefGen
+ref_idx_dir=${course_dir}/results/2_Map_1_Index_RefGen_hisat2
 fastq_dir=${course_dir}/fastq_files
 output_dir=${course_dir}/results/2_Map_2_MapReads
     mkdir ${output_dir}
@@ -29,7 +29,6 @@ cell_line=$1
 sample_fwd=${fastq_dir}/${cell_line}*R1*.fastq.gz
 sample_rev=${fastq_dir}/${cell_line}*R2*.fastq.gz
     # $sample_fwd and $sample_rev point to the fasta files to be mapped
-
 sam_out_file=${output_dir}/${cell_line}_hisat2.sam
     # $sam_out_file is just the name (incl. path) we give the sam-file to be written
 
