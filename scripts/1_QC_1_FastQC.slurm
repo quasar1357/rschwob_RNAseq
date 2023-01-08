@@ -15,7 +15,7 @@ module add UHTS/Quality_control/fastqc/0.11.9
 #Define (and create) input and output directories
 course_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
 fastq_dir=${course_dir}/fastq_files
-output_dir=${course_dir}/script_outputs/1_QC_1_FastQC
+output_dir=${course_dir}/results/1_QC_1_FastQC
     mkdir ${output_dir}
 
 #Make the quality analysis

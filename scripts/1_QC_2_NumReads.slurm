@@ -12,7 +12,7 @@
 #Define (and create) input and output directories
 course_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
 fastq_dir=${course_dir}/fastq_files
-output_dir=${course_dir}/script_outputs/1_QC_2_NumReads
+output_dir=${course_dir}/results/1_QC_2_NumReads
     mkdir ${output_dir}
 
 #Get the number of reads for the different files

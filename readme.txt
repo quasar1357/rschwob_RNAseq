@@ -43,23 +43,30 @@ Parental = P1, P2, P3
 Overview:
 
 1) Read quality and statistics
-    Goal: How many reads do you have for each replicate? How is the quality of these reads?
-    Software: FASTQC 0.11.9
+    Goal:       How is the quality of the reads?
+                How many reads do we have for each replicate?
+    Software:   FASTQC V 0.11.9
+                bash (grep)
     Scripts:    1_QC_1_FastQC.slurm
                 1_QC_2_NumReads.slurm
-    Input: fastq files (see above)
-    Output:     results of fastQC (folder QCres)
+    Input:      fastq files (see above)
+    Output:     results of FastQC
                 text file with number reads for confirmation
 
 2) Read mapping
-    Goal: What are the alignment rates for your samples?
-    Software: HISAT2 (alternative = STAR)
-    Reference: Human genome version hg38/GRCh38, index generated using HISAT2
-        Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
-    Scripts:    INDEX.slurm
-                MAP.slurm
-    Input: fastq files, forward and reverse each replicate
-    Output: BAM file for every replicate
+    Goal:       Mapping reads onto human reference genome
+                Alignment rates for the samples?
+    Software:   HISAT2 V 2.2.1 (alternative = STAR)
+                samtools V 1.10
+    Reference:  Human genome version hg38/GRCh38
+                Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
+    Scripts:    2_map_1_index_ref_gen.slurm
+                2_map_2_map_reads.slurm
+                2_map_3_SAM_index.slurm
+                2_map_4_BAM_to_SAM.slurm
+    Input:      fastq files, forward and reverse each replicate
+                reference genome (see above)
+    Output:     BAM file for every replicate (sorted and indexed)
 
 3) Transcriptome assembly
     Goal: How many exons, transcripts and genes are in your meta-assembly?

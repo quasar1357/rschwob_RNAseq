@@ -1,6 +1,5 @@
 .OLD/
-references/
 fastq_files/
-script_inputs/
-script_outputs/
+references/
+results/
 slurm_out_files/
