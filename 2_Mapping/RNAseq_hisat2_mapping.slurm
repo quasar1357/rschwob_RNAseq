@@ -26,7 +26,7 @@ ref_genome=${ref_dir}/*.fa
 genome_name=GRCh38_genome
 
 # build reference hisat2 index; $ref_genome points to the fasta file of the reference genome; $genome_name is the name we give the genome (used for generating the index)
-hisat2-build -p 16 $ref_genome $genome_name
+# hisat2-build -p 16 $ref_genome $genome_name
 
 # run hisat2 using the reference index just created; $sample_fwd and $sample_rev point to the fasta files to be mapped; $out_file is just the name we give the sam-file
 ref_idx=${ref_dir}/${genome_name}
@@ -34,7 +34,7 @@ hisat2 -p 8 --dta -x $ref_idx -1 $sample_fwd -2 $sample_rev -S $out_file
 
 # Options entered here are:
 # ‘-p 8’ denoting the use of 8 threads
-# ‘–dta’ is used to generate output SAM files that can be directly read into StringTie
+# ‘-–dta’ is used to generate output SAM files tailored for assemblers including StringTie
 # ‘-x’ is used to denote the indexed reference genome
 # ‘-1’ and ‘-2’ are used to denote our fwd and rev samples in a paired-end alignment
 # ‘-S’ is used to denote that we would like our output in SAM format

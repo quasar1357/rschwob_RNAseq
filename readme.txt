@@ -45,7 +45,7 @@ Overview:
 1) Read quality and statistics
     Goal: How many reads do you have for each replicate? How is the quality of these reads?
     Software: FASTQC
-    Script: RNAseq_QC.slurm (and RNAseq_NumReads.slurm)
+    Script: RNAseq_QC.slurm
     Input: fastq files (see above)
     Outputs: results of fastQC (folder QCres), text file with number reads for confirmation
 
@@ -53,19 +53,25 @@ Overview:
     Goal: What are the alignment rates for your samples?
     Software: HISAT2 (alternative = STAR)
     Reference: Human genome version hg38/GRCh38, index generated using HISAT2
+        Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
     Script: RNAseq_hisat2_mapping.slurm
     Input: fastq files, forward and reverse each replicate
     Output: BAM file for every replicate
 
 3) Transcriptome assembly
-    Goal: How many exons, transcripts and genes are in your meta-assembly? How many of these are novel, i.e. do not have an associated GENCODE identifier? How many transcripts and genes are composed of just a single exon?
-    Software: StringTie or Scallop
+    Goal: How many exons, transcripts and genes are in your meta-assembly?
+            How many of these are novel, i.e. do not have an associated GENCODE identifier?
+            How many transcripts and genes are composed of just a single exon?
+    Software: StringTie (or Scallop)
     Script:
-    Input: 
-    Output: One meta-assembly GTF format file
+    Input: 6 BAM files (1 of each cell line)
+    Output: One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
 
 4) Quantification
-    Goal: What units of expression are you using? Does the entire expression level across all genes add up to the expected amount? How many transcripts and genes did you detect? How many novel transcripts and genes did you detect?
+    Goal: What units of expression are you using?
+            Does the entire expression level across all genes add up to the expected amount?
+            How many transcripts and genes did you detect?
+            How many novel transcripts and genes did you detect?
     Software: htseq-count or Kallisto
     Script:
     Input: 
@@ -79,8 +85,10 @@ Overview:
     Output: Transcript- and gene-level differential expression tables
 
 6) Integrative analysis
-    Goal: How good are the 5’ and 3’ annotations of your transcripts? What percent of your novel transcripts are protein coding? How many novel “intergenic” genes have you identified?
-    Software: CPAT or CPC
+    Goal: How good are the 5’ and 3’ annotations of your transcripts?
+            What percent of your novel transcripts are protein coding?
+            How many novel “intergenic” genes have you identified?
+    Software: CPAT or CPCs
     Script:
     Input: 
     Output: Statistics and plots addressing key questions
