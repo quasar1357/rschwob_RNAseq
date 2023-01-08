@@ -3,11 +3,11 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=40G
 #SBATCH --time=05:00:00
-#SBATCH --job-name=Index_RefGen
+#SBATCH --job-name=Index_RefGen_hisat2
 #SBATCH --mail-user=roman.schwob@students.unibe.ch
 #SBATCH --mail-type=end,fail
-#SBATCH --output=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob/slurm_out_files/Index_RefGen_%j.o
-#SBATCH --error=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob/slurm_out_files/Index_RefGen_%j.e
+#SBATCH --output=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob/slurm_out_files/Index_RefGen_hisat2_%j.o
+#SBATCH --error=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob/slurm_out_files/Index_RefGen_hisat2_%j.e
 
 # Add the modules
 module add UHTS/Aligner/hisat/2.2.1
@@ -15,7 +15,7 @@ module add UHTS/Aligner/hisat/2.2.1
 # Define (and create) input and output directories
 course_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
 ref_dir=${course_dir}/references
-output_dir=${course_dir}/results/2_Map_1_Index_RefGen
+output_dir=${course_dir}/results/2_Map_1_Index_RefGen_hisat2
     mkdir ${output_dir}
     cd ${output_dir}
 
