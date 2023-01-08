@@ -44,18 +44,20 @@ Overview:
 
 1) Read quality and statistics
     Goal: How many reads do you have for each replicate? How is the quality of these reads?
-    Software: FASTQC
-    Script: RNAseq_QC.slurm
+    Software: FASTQC 0.11.9
+    Scripts:    1_QC_1_FastQC.slurm
+                1_QC_2_NumReads.slurm
     Input: fastq files (see above)
-    Outputs: results of fastQC (folder QCres), text file with number reads for confirmation
+    Output:     results of fastQC (folder QCres)
+                text file with number reads for confirmation
 
 2) Read mapping
     Goal: What are the alignment rates for your samples?
     Software: HISAT2 (alternative = STAR)
     Reference: Human genome version hg38/GRCh38, index generated using HISAT2
         Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
-        Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
-    Script: RNAseq_hisat2_mapping.slurm
+    Scripts:    INDEX.slurm
+                MAP.slurm
     Input: fastq files, forward and reverse each replicate
     Output: BAM file for every replicate
 
@@ -63,10 +65,8 @@ Overview:
     Goal: How many exons, transcripts and genes are in your meta-assembly?
             How many of these are novel, i.e. do not have an associated GENCODE identifier?
             How many transcripts and genes are composed of just a single exon?
-    Software: StringTie (or Scallop)
+    Software: StringTie (alternative = Scallop)
     Script:
-    Input: 6 BAM files (1 of each cell line)
-    Output: One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
     Input: 6 BAM files (1 of each cell line)
     Output: One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
 
@@ -75,14 +75,14 @@ Overview:
             Does the entire expression level across all genes add up to the expected amount?
             How many transcripts and genes did you detect?
             How many novel transcripts and genes did you detect?
-    Software: htseq-count or Kallisto
+    Software: Kallisto (alternative = htseq-count)
     Script:
     Input: 
     Output: Transcript and gene level expression tables
 
 5) Differential expression
     Goal: Do known/expected genes change as expected?
-    Software: DESeq2 or Sleuth
+    Software: Sleuth (alternative = DESeq2)
     Script:
     Input: 
     Output: Transcript- and gene-level differential expression tables
