@@ -60,10 +60,10 @@ Overview:
                 samtools V 1.10
     Reference:  Human genome version hg38/GRCh38
                 Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
-    Scripts:    2_map_1_index_ref_gen.slurm
-                2_map_2_map_reads.slurm
-                2_map_3_SAM_index.slurm
-                2_map_4_BAM_to_SAM.slurm
+    Scripts:    2_Map_1_Index_RefGen.slurm
+                2_Map_2_MapReads.slurm
+                2_Map_3_SAM_index.slurm
+                2_Map_4_BAM_to_SAM.slurm
     Input:      fastq files, forward and reverse each replicate
                 reference genome (see above)
     Output:     BAM file for every replicate (sorted and indexed)
