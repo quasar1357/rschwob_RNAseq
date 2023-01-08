@@ -1,5 +1,5 @@
 .OLD/
 ref_genome/
 fastq_files/
-2_Mapping/hisat2_out/
-2_Mapping/samtools_out/
+script_inputs/
+script_outputs/
