@@ -3,3 +3,4 @@ references/
 fastq_files/
 script_inputs/
 script_outputs/
+slurm_out_files/
