@@ -32,15 +32,15 @@ bam_sorted=${output_dir}/${cell_line}_sorted.bam
 
 # Convert SAM to BAM
 samtools view -b -t ${samtools_idx} ${sam_file} > ${bam_unsorted}
-    # Options entered here are:
-        #"-b": output as BAM
-        #"-t": samtool index (FILE listing reference names and lengths)
+    # Options:
+        # "-b": output as BAM
+        # "-t": samtool index (FILE listing reference names and lengths)
 
 # Sort BAM
 samtools sort -o ${bam_sorted} ${bam_unsorted}
-    # Options entered here are:
-        #"sort": Sort alignments by leftmost coordinates, or by read name when -n is used. 
-        #"-o":Write final output to FILE rather than standard output
+    # Options:
+        # "sort": Sort alignments by leftmost coordinates, or by read name when -n is used. 
+        # "-o":Write final output to FILE rather than standard output
 # rm ${bam_unsorted}
 
 # Index BAM

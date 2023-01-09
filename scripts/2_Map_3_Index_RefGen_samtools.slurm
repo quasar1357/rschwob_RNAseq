@@ -22,7 +22,7 @@ output_dir=${course_dir}/results/2_Map_3_Index_RefGen_samtools
 ref_fasta=${ref_dir}/*.fa
     # $ref_fasta points to the fasta file of the reference genome (should in our case just be one fasta file of GRCh38_genome)
 genome_name=GRCh38_genome
-sam_index=${output_dir}/${genome_name}_samtools_idx.fai
+sam_index=${output_dir}/${genome_name}_samtools_idx.fa.fai
     # $sam_index is the output name for the samtools index of the reference genome
 samtools faidx ${ref_fasta} -o ${sam_index}
     #Options:
