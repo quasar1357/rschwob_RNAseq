@@ -25,7 +25,7 @@ ref_fasta=${ref_dir}/*.fa
 genome_name=GRCh38_genome
     # $genome_name is the name we give the genome (used for generating the index)
 hisat2-build -p 16 $ref_fasta $genome_name
-    # Options entered here are:
-        #"-p 16": Launch 16 parallel build threads.
-        #"${ref_fasta}": A comma-separated list of FASTA files containing the reference sequences to be aligned to.
-        #"${genome_name}": The basename of the index files to write.
+    # Options:
+        # "-p 16": Launch 16 parallel build threads.
+        # "${ref_fasta}": A comma-separated list of FASTA files containing the reference sequences to be aligned to.
+        # "${genome_name}": The basename of the index files to write.

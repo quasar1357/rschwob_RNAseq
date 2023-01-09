@@ -34,7 +34,7 @@ sam_out_file=${output_dir}/${cell_line}_hisat2.sam
 
 # Run hisat2 using the reference index created before
 hisat2 -p 8 --dta --rna-strandness RF -x ${ref_idx} -1 ${sample_fwd} -2 ${sample_rev} -S ${sam_out_file}
-    # Options entered here are:
+    # Options:
         # ‘-p 8’ denoting the use of 8 threads
         # ‘-–dta’ is used to generate output SAM files tailored for assemblers including StringTie
         # ‘--rna-strandness RF’ specifies strand-specific information.

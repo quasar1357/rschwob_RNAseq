@@ -20,7 +20,7 @@ output_dir=${course_dir}/results/1_QC_1_FastQC
 
 # Make the quality analysis
 fastqc -t 2 -o ${output_dir} ${fastq_dir}/*.fastq.gz
-    # Options entered here are:
-        #"-t 2": Specifies the number of files which can be processed simultaneously.
-        #"-o ${output_dir}": Create all output files in the specified output directory.
-        #"${fastq_dir}/*.fastq.gz": Input all fastq files in the input directory.
+    # Options:
+        # "-t 2": Specifies the number of files which can be processed simultaneously.
+        # "-o ${output_dir}": Create all output files in the specified output directory.
+        # "${fastq_dir}/*.fastq.gz": Input all fastq files in the input directory.

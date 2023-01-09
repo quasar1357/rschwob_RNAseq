@@ -24,4 +24,7 @@ ref_fasta=${ref_dir}/*.fa
 genome_name=GRCh38_genome
 sam_index=${output_dir}/${genome_name}_samtools_idx.fai
     # $sam_index is the output name for the samtools index of the reference genome
-samtools faidx ${ref_fasta} > ${sam_index}
+samtools faidx ${ref_fasta} -o ${sam_index}
+    #Options:
+        # "faidx": Index a reference sequence in the FASTA format
+        # "-o": Write to file
