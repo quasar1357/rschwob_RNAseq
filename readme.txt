@@ -79,7 +79,7 @@ Overview:
     Input:      6 BAM files (1 of each cell line)
                 Reference genome in gtf format
     Output:     One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
-                Txt file with numbers of genes, transcripts, exons which are novel, annotated & single-exon transcripts
+                Txt file with numbers of genes, transcripts, exons that are novel, annotated, single-exon
 
 4)  Quantification
     Goal:       What units of expression are you using?
