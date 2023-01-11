@@ -2,8 +2,10 @@
 library(tidyverse)
 library(rtracklayer)
 
-# Load merged assembly GTF and convert it to a data frame
+############ Define functions to load, filter and analyze a (merged meta assembly) GTF file
+
 load_filter_gtf <- function(gtf_path){
+  # Load merged assembly GTF and convert it to a data frame
   gtf_in <- rtracklayer::import(gtf_path)
   gtf_df <- as.data.frame(gtf_in)
   
@@ -62,7 +64,7 @@ num <- function(input){
   }
 }
 
-############ Analyze Meta Assembly
+############ Analyse Meta Assembly
 
 gtf <- load_filter_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 
