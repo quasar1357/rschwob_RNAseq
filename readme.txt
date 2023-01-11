@@ -50,8 +50,8 @@ Overview:
     Scripts:    1_QC_1_FastQC.slurm
                 1_QC_2_NumReads.slurm
     Input:      fastq files (see above)
-    Output:     results of FastQC
-                text file with number reads for confirmation
+    Output:     Results of FastQC
+                Text file with number reads for confirmation
 
 2)  Read mapping
     Goal:       Mapping reads onto human reference genome
@@ -65,7 +65,7 @@ Overview:
                 2_Map_3_Index_RefGen_samtools.slurm
                 2_Map_4_SAM2BAM.slurm
     Input:      fastq files, forward and reverse each replicate
-                reference genome (see above)
+                Reference genome in fasta format (see above)
     Output:     BAM file for every replicate (sorted and indexed)
 
 3)  Transcriptome assembly
@@ -73,18 +73,27 @@ Overview:
                 How many of these are novel, i.e. do not have an associated GENCODE identifier?
                 How many transcripts and genes are composed of just a single exon?
     Software:   StringTie (alternative = Scallop)
-    Scripts:    
+    Scripts:    3_Assembly_1_SingleAssembly.slurm
+                3_Assembly_2_MergeAssemblies.slurm
+                3_Assembly_3_FilterCount_MetaAssembly.R
     Input:      6 BAM files (1 of each cell line)
+                Reference genome in gtf format
     Output:     One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
+                Txt file with numbers of genes, transcripts, exons which are novel, annotated & single-exon transcripts
 
 4)  Quantification
     Goal:       What units of expression are you using?
                 Does the entire expression level across all genes add up to the expected amount?
                 How many transcripts and genes did you detect?
                 How many novel transcripts and genes did you detect?
-    Software:   Kallisto (alternative = htseq-count)
-    Script:
-    Input: 
+    Software:   Kallisto (alternative = htseq-count); cufflinks (to generate reference transcriptome)
+    Scripts:    4_Quantification_1_Create_RefTrans.slurm
+                4_Quantification_2_Index_RefTrans_Kallisto.slurm
+                4_Quantification_3_ExprLevels.slurm
+                4_Quantification_4_Validation.R
+    Input:      Meta-assembly GTF
+                Reference genome in fasta format (see above)
+                fastq files, forward and reverse each replicate
     Output:     Transcript and gene level expression tables
 
 5)  Differential expression
