@@ -86,7 +86,8 @@ Overview:
                 Does the entire expression level across all genes add up to the expected amount?
                 How many transcripts and genes did you detect?
                 How many novel transcripts and genes did you detect?
-    Software:   Kallisto (alternative = htseq-count); cufflinks (to generate reference transcriptome)
+    Software:   Cufflinks (to generate reference transcriptome)
+                Kallisto (alternative = htseq-count)
     Scripts:    4_Quantification_1_Create_RefTrans.slurm
                 4_Quantification_2_Index_RefTrans_Kallisto.slurm
                 4_Quantification_3_ExprLevels.slurm
@@ -95,6 +96,7 @@ Overview:
                 Reference genome in fasta format (see above)
                 fastq files, forward and reverse each replicate
     Output:     Transcript and gene level expression tables
+                Txt file with total tpm (= 1'000'000) for validation of expression levels
 
 5)  Differential expression
     Goal:       Do known/expected genes change as expected?
