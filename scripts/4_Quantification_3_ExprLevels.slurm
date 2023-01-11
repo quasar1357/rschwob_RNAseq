@@ -44,5 +44,3 @@ merged_assembly=${merged_assembly_dir}/merged_assembly.gtf
         # "-b 30": Number of bootstrap samples
         # "–g": GTF file for transcriptome information (merged assembly gtf)
         # "${sample_fwd}/${sample_rev}": file (fastq) of forward and backward reads.
-
-# When finised copy the text from the error file and the run_info.json into a text file.
