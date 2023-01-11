@@ -73,7 +73,7 @@ Overview:
                 How many of these are novel, i.e. do not have an associated GENCODE identifier?
                 How many transcripts and genes are composed of just a single exon?
     Software:   StringTie (alternative = Scallop)
-    Script:
+    Scripts:    
     Input:      6 BAM files (1 of each cell line)
     Output:     One meta-assembly GTF format file (merged through stringtie --merge from 6 separate GTF files)
 
