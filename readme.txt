@@ -4,9 +4,9 @@ Roman Schwob (roman.schwob@students.unibe.ch)
 === Bioinformatics: Analysis of RNA sequencing reads ===
 ========================================================
 
-This project is part of the course "RNA sequencing" (467713) of the University of Bern, taking place in Fall Semester 2022.
+This project is part of the course "RNA sequencing" (467713) of the University of Bern, taking place in Fall Semester 2022/2023.
 
-As part of group 1, I am analyzing the reads of the following cell lines:
+As part of subgroup 1 in the lncRNA group, I am analyzing the reads of the following cell lines:
 
 --- --- --- --- --- --- --- ---  --- --- 
 
@@ -59,7 +59,7 @@ Overview:
     Software:   HISAT2 V 2.2.1 (alternative = STAR)
                 samtools V 1.10
     Reference:  Human genome version hg38/GRCh38
-                Gencode, release 21, comprehensive gene annotation: https://www.gencodegenes.org/human/release_21.html
+                Gencode, release 21, comprehensive gene annotation with ALL regions: www.gencodegenes.org/human/release_21.html
     Scripts:    2_Map_1_Index_RefGen_hisat2.slurm
                 2_Map_2_MapReads.slurm
                 2_Map_3_Index_RefGen_samtools.slurm
@@ -116,7 +116,23 @@ Overview:
 
 7)  Prioritization (Optional)
     Goal:       How would you prioritize your data to provide her with a ranked list of candidates?
-    Software:
-    Script:
-    Input: 
+    Software:   Not done
+    Script:     Not done
+    Input:      Not done
     Output:     Ranked list of gene candidates
+
+
+Software used:
+
+fastqc:		    https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+hisat2:		    http://daehwankimlab.github.io/hisat2/manual/
+samtools:	    http://www.htslib.org/
+IGV:		    https://igv.org/; https://software.broadinstitute.org/software/igv/
+stringtie:	    https://ccb.jhu.edu/software/stringtie/
+cufflinks:	    http://cole-trapnell-lab.github.io/cufflinks/
+kallisto:	    https://pachterlab.github.io/kallisto/about.html
+
+rtracklayer:	https://rdrr.io/bioc/rtracklayer/
+sleuth:		    https://pachterlab.github.io/sleuth/about
+
+Overview over all kinds of software, including most of the above: https://bioinformaticshome.com/
