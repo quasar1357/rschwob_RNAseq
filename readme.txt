@@ -68,6 +68,7 @@ Overview:
     Input:      fastq files, forward and reverse each replicate
                 Reference genome in fasta format (see above)
     Output:     BAM file for every replicate (sorted and indexed)
+                Text file with the alignment rates (in 2_Map_2_MapReads)
 
 3)  Transcriptome assembly
     Goal:       How many exons, transcripts and genes are in your meta-assembly?
