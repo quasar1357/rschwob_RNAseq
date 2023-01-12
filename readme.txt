@@ -59,7 +59,8 @@ Overview:
     Software:   HISAT2 V 2.2.1 (alternative = STAR)
                 samtools V 1.10
     Reference:  Human genome version hg38/GRCh38
-                Gencode, release 21, comprehensive gene annotation with ALL regions: www.gencodegenes.org/human/release_21.html
+                Gencode, release 21, comprehensive gene annotation with ALL regions
+                https://www.gencodegenes.org/human/release_21.html
     Scripts:    2_Map_1_Index_RefGen_hisat2.slurm
                 2_Map_2_MapReads.slurm
                 2_Map_3_Index_RefGen_samtools.slurm
