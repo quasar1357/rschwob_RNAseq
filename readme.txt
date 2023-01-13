@@ -97,15 +97,18 @@ Overview:
     Input:      Meta-assembly GTF
                 Reference genome in fasta format (see above)
                 fastq files, forward and reverse each replicate
-    Output:     Transcript and gene level expression tables
+    Output:     Transcript and gene level expression tables (abundance.h5)
                 Txt file with total tpm (= 1'000'000) for validation of expression levels
 
 5)  Differential expression
     Goal:       Do known/expected genes change as expected?
     Software:   Sleuth (alternative = DESeq2)
-    Script:
-    Input: 
-    Output:     Transcript- and gene-level differential expression tables
+    Script:     5_DiffExpr_2_Gene_Transcript_Map.R
+                5_DiffExpr_3_DifExpr_TransLevel.R
+                5_DiffExpr_4_DifExpr_GeneLevel.R
+    Input:      Meta-assembly GTF
+                Transcript and gene level expression tables (abundance.h5)
+    Output:     Transcript- and gene-level differential expression tables (& plots)
 
 6)  Integrative analysis
     Goal:       How good are the 5’ and 3’ annotations of your transcripts?
