@@ -107,8 +107,8 @@ Overview:
                 5_DiffExpr_3_DifExpr_TransLevel.R
                 5_DiffExpr_4_DifExpr_GeneLevel.R
     Input:      Meta-assembly GTF
-                Transcript and gene level expression tables (abundance.h5)
-    Output:     Transcript- and gene-level differential expression tables (& plots)
+                Transcript and gene level expression tables (abundance.h5 from kallisto)
+    Output:     Transcript- and gene-level differential expression tables & plots
 
 6)  Integrative analysis
     Goal:       How good are the 5’ and 3’ annotations of your transcripts?
@@ -140,4 +140,5 @@ kallisto:	    https://pachterlab.github.io/kallisto/about.html
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
 sleuth:		    https://pachterlab.github.io/sleuth/about
 
-Overview over all kinds of software, including most of the above: https://bioinformaticshome.com/
+Overview over all kinds of bioinformatics software, including most of the above:
+https://bioinformaticshome.com/
