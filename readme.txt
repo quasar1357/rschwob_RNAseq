@@ -6,11 +6,13 @@ Roman Schwob (roman.schwob@students.unibe.ch)
 
 This project is part of the course "RNA sequencing" (467713) of the University of Bern, taking place in Fall Semester 2022/2023.
 
-As part of subgroup 1 in the lncRNA group, I am analyzing the reads of the following cell lines:
+As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclonal and compared the to the parental cell lines.
 
---- --- --- --- --- --- --- ---  --- --- 
+--- --- --- --- --- --- --- --- --- ---
 
-Holoclonal = 1.1, 1.2, 1.5
+Datasets:
+
+Holoclonal = 1_1, 1_2, 1_5
 
     Files:
    
@@ -36,16 +38,20 @@ Parental = P1, P2, P3
     P3_L3_R1_001_fjv6hlbFgCST.fastq.gz
     P3_L3_R2_001_xo7RBLLYYqeu.fastq.gz
 
+Reference genome
 
---- --- --- --- --- --- --- ---  --- --- 
+    Human genome version hg38/GRCh38
+    Gencode release 21, comprehensive gene annotation with ALL regions
+    https://www.gencodegenes.org/human/release_21.html
 
+--- --- --- --- --- --- --- --- --- ---
 
-Overview:
+Data analysis steps:
 
 1)  Read quality and statistics
     Goal:       How is the quality of the reads?
                 How many reads do we have for each replicate?
-    Software:   FASTQC V 0.11.9
+    Software:   FastQC 0.11.9
                 bash (grep)
     Scripts:    1_QC_1_FastQC.slurm
                 1_QC_2_NumReads.slurm
@@ -56,11 +62,9 @@ Overview:
 2)  Read mapping
     Goal:       Mapping reads onto human reference genome
                 Alignment rates for the samples?
-    Software:   HISAT2 V 2.2.1 (alternative = STAR)
-                samtools V 1.10
-    Reference:  Human genome version hg38/GRCh38
-                Gencode, release 21, comprehensive gene annotation with ALL regions
-                https://www.gencodegenes.org/human/release_21.html
+    Software:   HISAT2 2.2.1 (alternative = STAR)
+                Samtools 1.10
+                IGV 2.15.4
     Scripts:    2_Map_1_Index_RefGen_hisat2.slurm
                 2_Map_2_MapReads.slurm
                 2_Map_3_Index_RefGen_samtools.slurm
@@ -74,7 +78,8 @@ Overview:
     Goal:       How many exons, transcripts and genes are in your meta-assembly?
                 How many of these are novel, i.e. do not have an associated GENCODE identifier?
                 How many transcripts and genes are composed of just a single exon?
-    Software:   StringTie (alternative = Scallop)
+    Software:   StringTie 1.3.3b (alternative = Scallop)
+                R 4.2.2
     Scripts:    3_Assembly_1_SingleAssembly.slurm
                 3_Assembly_2_MergeAssemblies.slurm
                 3_Assembly_3_FilterCount_MetaAssembly.R
@@ -88,8 +93,9 @@ Overview:
                 Does the entire expression level across all genes add up to the expected amount?
                 How many transcripts and genes did you detect?
                 How many novel transcripts and genes did you detect?
-    Software:   Cufflinks (to generate reference transcriptome)
-                Kallisto (alternative = htseq-count)
+    Software:   Cufflinks 2.2.1 (to generate reference transcriptome)
+                kallisto 0.46.0 (alternative = htseq-count)
+                R 4.2.2
     Scripts:    4_Quantification_1_Create_RefTrans.slurm
                 4_Quantification_2_Index_RefTrans_Kallisto.slurm
                 4_Quantification_3_ExprLevels.slurm
@@ -102,7 +108,8 @@ Overview:
 
 5)  Differential expression
     Goal:       Do known/expected genes change as expected?
-    Software:   Sleuth (alternative = DESeq2)
+    Software:   sleuth 0.30.1 (alternative = DESeq2)
+                R 4.2.2
     Script:     5_DiffExpr_2_Gene_Transcript_Map.R
                 5_DiffExpr_3_DifExpr_TransLevel.R
                 5_DiffExpr_4_DifExpr_GeneLevel.R
@@ -126,15 +133,16 @@ Overview:
     Input:      Not done
     Output:     Ranked list of gene candidates
 
+--- --- --- --- --- --- --- --- --- ---
 
 Software used:
 
-fastqc:		    https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-hisat2:		    http://daehwankimlab.github.io/hisat2/manual/
-samtools:	    http://www.htslib.org/
+FastQC:		    https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+HISAT2:		    https://daehwankimlab.github.io/hisat2/manual/
+Samtools:	    https://www.htslib.org/
 IGV:		    https://igv.org/; https://software.broadinstitute.org/software/igv/
-stringtie:	    https://ccb.jhu.edu/software/stringtie/
-cufflinks:	    http://cole-trapnell-lab.github.io/cufflinks/
+StringTie:	    https://ccb.jhu.edu/software/stringtie/
+Cufflinks:	    https://cole-trapnell-lab.github.io/cufflinks/
 kallisto:	    https://pachterlab.github.io/kallisto/about.html
 
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
