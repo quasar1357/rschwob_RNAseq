@@ -8,9 +8,10 @@ This project is part of the course "RNA sequencing" (467713) of the University o
 
 As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclonal and compared the to the parental cell lines.
 
---- --- --- --- --- --- --- --- --- ---
 
-Datasets:
+--- --- --- --- --- --- --- --- --- ---
+Datasets
+--- --- --- --- --- --- --- --- --- ---
 
 Holoclonal = 1_1, 1_2, 1_5
 
@@ -44,9 +45,10 @@ Reference genome
     Gencode release 21, comprehensive gene annotation with ALL regions
     https://www.gencodegenes.org/human/release_21.html
 
---- --- --- --- --- --- --- --- --- ---
 
-Data analysis steps:
+--- --- --- --- --- --- --- --- --- ---
+Data analysis steps
+--- --- --- --- --- --- --- --- --- ---
 
 1)  Read quality and statistics
     Goal:       How is the quality of the reads?
@@ -133,9 +135,10 @@ Data analysis steps:
     Input:      Not done
     Output:     Ranked list of gene candidates
 
---- --- --- --- --- --- --- --- --- ---
 
-Software used:
+--- --- --- --- --- --- --- --- --- ---
+Software used
+--- --- --- --- --- --- --- --- --- ---
 
 FastQC:		    https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 HISAT2:		    https://daehwankimlab.github.io/hisat2/manual/
