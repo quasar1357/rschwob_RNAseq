@@ -6,7 +6,7 @@ Roman Schwob (roman.schwob@students.unibe.ch)
 
 This project is part of the course "RNA sequencing" (467713) of the University of Bern, taking place in Fall Semester 2022/2023.
 
-As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclonal and compared the to the parental cell lines.
+As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclonal and compared them to the parental cell lines.
 
 
 --- --- --- --- --- --- --- --- --- ---
@@ -15,7 +15,7 @@ Datasets
 
 Holoclonal = 1_1, 1_2, 1_5
 
-    Files:
+    Files (3 samples, each with R1 and R2 = forward and reverse):
    
     1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz
     1_1_L3_R2_001_qyjToP2TB6N7.fastq.gz
@@ -28,7 +28,7 @@ Holoclonal = 1_1, 1_2, 1_5
 
 Parental = P1, P2, P3
 
-    Files:
+    Files (3 samples, each with R1 and R2 = forward and reverse):
     
     P1_L3_R1_001_9L0tZ86sF4p8.fastq.gz
     P1_L3_R2_001_yd9NfV9WdvvL.fastq.gz
