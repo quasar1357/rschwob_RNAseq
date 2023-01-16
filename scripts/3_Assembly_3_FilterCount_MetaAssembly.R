@@ -1,16 +1,16 @@
-# load packages
 library(tidyverse)
 library(rtracklayer)
 
 ############ Define functions to load, filter and analyze a (merged meta assembly) GTF file
 
-load_filter_gtf <- function(gtf_path){
-  # Load merged assembly GTF and convert it to a data frame
+load_df_gtf <- function(gtf_path){
+  # Load GTF and convert it to a data frame
   gtf_in <- rtracklayer::import(gtf_path)
   gtf_df <- as.data.frame(gtf_in)
   
-  # Create filter of the gtf df, so we can get other numbers easily
-  gtf <- gtf_df %>% select(seqnames, strand, type, gene_id, transcript_id, exon_number, gene_name, ref_gene_id)
+  # Optional: Only take important columns
+  gtf <- gtf_df # %>% select(seqnames, strand, type, gene_id, transcript_id, exon_number, gene_name, ref_gene_id)
+  return(gtf)
 }
 
 # Define functions to filter the df
@@ -66,7 +66,7 @@ num <- function(input){
 
 ############ Analyse Meta Assembly
 
-gtf <- load_filter_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
+gtf <- load_df_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 
 # Get number of transcripts in the meta-assembly
 num(transcripts(gtf))

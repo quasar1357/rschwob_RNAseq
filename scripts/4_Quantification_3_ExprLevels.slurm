@@ -35,8 +35,8 @@ merged_assembly=${merged_assembly_dir}/merged_assembly.gtf
     # What file shall the Kallisto index be written to?
 
 
-#Make the kallisto quantification
-    kallisto quant -i ${reftrans_idx} -o ${cell_line_out_dir} --rf-stranded -b 30 -g ${merged_assembly} ${sample_rev} ${sample_fwd}
+# Run the kallisto quantification
+kallisto quant -i ${reftrans_idx} -o ${cell_line_out_dir} --rf-stranded -b 30 -g ${merged_assembly} ${sample_rev} ${sample_fwd}
     # Options:
         # "quant": runs the quantification algorithm.
         # "–i": Filename for the indexed reference transcriptome (kallisto index) to be used for quantification

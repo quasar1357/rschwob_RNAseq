@@ -24,8 +24,8 @@ reftrans_in=${reftrans_in_dir}/ref_transcriptome.fasta
 kallisto_index=${output_dir}/ref_trans_kallisto_index.idx
     # What file shall the Kallisto index be written to?
 
-# Make a kallisto index (after once doing this it can be commented)
-    kallisto index -i ${kallisto_index} ${reftrans_in}
+# Create kallisto index
+kallisto index -i ${kallisto_index} ${reftrans_in}
     # Options:
         # "index": Makes an index for Kallisto analysis
         # "-i": Filename for the kallisto index to be constructed

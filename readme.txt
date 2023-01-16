@@ -13,9 +13,9 @@ As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclona
 Datasets
 --- --- --- --- --- --- --- --- --- ---
 
-Holoclonal (= 1_1, 1_2, 1_5), reads from TruSeq stranded libraries
+Holoclonal (3 replicates: 1_1, 1_2, 1_5), reads from TruSeq stranded libraries
 
-    Files (3 samples, each with R1 and R2 = reverse and forward, respectively):
+    Files (3 replicates, each with R1 and R2 = reverse and forward, respectively):
    
     1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz
     1_1_L3_R2_001_qyjToP2TB6N7.fastq.gz
@@ -26,9 +26,9 @@ Holoclonal (= 1_1, 1_2, 1_5), reads from TruSeq stranded libraries
     1_5_L3_R1_001_iXvvRzwmFxF3.fastq.gz
     1_5_L3_R2_001_iXCMrktKyEh0.fastq.gz
 
-Parental (P1, P2, P3), reads from TruSeq stranded libraries
+Parental (3 replicates: P1, P2, P3), reads from TruSeq stranded libraries
 
-    Files (3 samples, each with R1 and R2 = reverse and forward, respectively):
+    Files (3 replicates, each with R1 and R2 = reverse and forward, respectively):
     
     P1_L3_R1_001_9L0tZ86sF4p8.fastq.gz
     P1_L3_R2_001_yd9NfV9WdvvL.fastq.gz
@@ -41,11 +41,15 @@ Parental (P1, P2, P3), reads from TruSeq stranded libraries
 
 Reference genome
 
-    Human genome, version GRCh38, GENCODE release 21; https://www.gencodegenes.org/human/release_21.html
+    Human genome, version GRCh38
+    GENCODE release 21 (https://www.gencodegenes.org/human/release_21.html):
     - Comprehensive gene annotation with ALL regions in GTF format
     - Genome sequence (GRCh38) with ALL regions in fasta format
+    Uni Basel, Human Build 38 (https://www.polyasite.unibas.ch/atlas):
+    - Atlas BED file with PolyA sites 
+    FANTOM5 collection (https://fantom.gsc.riken.jp/5/datafiles/reprocessed/hg38_latest/extra/CAGE_peaks/):
+    - hg38_fair+new_CAGE_peaks_phase1and2 BED file
     
-
 
 --- --- --- --- --- --- --- --- --- ---
 Data analysis steps
@@ -122,17 +126,17 @@ Data analysis steps
 
 6)  Integrative analysis
     Goal:       How good are the 5’ and 3’ annotations of your transcripts?
-                What percent of your novel transcripts are protein coding?
                 How many novel “intergenic” genes have you identified?
+                What percent of your novel transcripts are protein coding?
     Software:   R 4.2.2
                 BEDTools 2.29.2
                 CPC 2.0
     Scripts:    6_IntAn_1_CreateBed.R
-                6_IntAn_2_Find_TSS_PolyA.slurm
-                6_IntAn_3_Find_intergenic.slurm
-                6_IntAn_4_ProtCodPot.slurm
-    Input:      Meta-assembly GTF
+                6_IntAn_2_Find_TSS_PolyA_intergenic.slurm
+                6_IntAn_3_ProtCodPot.slurm
+    Input:      Merged meta-assembly GTF
                 BED references for polyA and TSS
+                Reference genome in gtf format (for finding "intergenic" genes)
     Output:     Statistics and plots addressing key questions
 
 7)  Prioritization (Optional)
