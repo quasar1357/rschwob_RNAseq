@@ -25,9 +25,10 @@ cell_line_out_dir=${output_dir}/${cell_line}
     mkdir ${cell_line_out_dir}
 
 # Define the files to be used and created
-sample_fwd=${fastq_dir}/${cell_line}*R1*.fastq.gz
-sample_rev=${fastq_dir}/${cell_line}*R2*.fastq.gz
+sample_rev=${fastq_dir}/${cell_line}*R1*.fastq.gz
+sample_fwd=${fastq_dir}/${cell_line}*R2*.fastq.gz
     # fastq files with the forward and reverse reads (original read fastq files of the sample cell lines)
+    # NOTE: For TruSeq stranded libraries, the second reads are the transcription strand (fwd)
 reftrans_idx=${reftrans_idx_dir}/ref_trans_kallisto_index.idx
     # Define the reference transcriptome index file for input
 merged_assembly=${merged_assembly_dir}/merged_assembly.gtf
@@ -35,7 +36,7 @@ merged_assembly=${merged_assembly_dir}/merged_assembly.gtf
 
 
 #Make the kallisto quantification
-    kallisto quant -i ${reftrans_idx} -o ${cell_line_out_dir} --rf-stranded -b 30 -g ${merged_assembly} ${sample_fwd} ${sample_rev}
+    kallisto quant -i ${reftrans_idx} -o ${cell_line_out_dir} --rf-stranded -b 30 -g ${merged_assembly} ${sample_rev} ${sample_fwd}
     # Options:
         # "quant": runs the quantification algorithm.
         # "–i": Filename for the indexed reference transcriptome (kallisto index) to be used for quantification
@@ -43,4 +44,4 @@ merged_assembly=${merged_assembly_dir}/merged_assembly.gtf
         # "--rf-stranded": Strand specific reads, first read reverse.
         # "-b 30": Number of bootstrap samples
         # "–g": GTF file for transcriptome information (merged assembly gtf)
-        # "${sample_fwd}/${sample_rev}": file (fastq) of forward and backward reads.
+        # "${sample_rev}/${sample_fwd}": file (fastq) of reverse and forward reads.

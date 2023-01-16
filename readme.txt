@@ -13,9 +13,9 @@ As part of subgroup 1 in the lncRNA group, I analyzed the reads of the holoclona
 Datasets
 --- --- --- --- --- --- --- --- --- ---
 
-Holoclonal = 1_1, 1_2, 1_5
+Holoclonal (= 1_1, 1_2, 1_5), reads from TruSeq stranded libraries
 
-    Files (3 samples, each with R1 and R2 = forward and reverse):
+    Files (3 samples, each with R1 and R2 = reverse and forward, respectively):
    
     1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz
     1_1_L3_R2_001_qyjToP2TB6N7.fastq.gz
@@ -26,9 +26,9 @@ Holoclonal = 1_1, 1_2, 1_5
     1_5_L3_R1_001_iXvvRzwmFxF3.fastq.gz
     1_5_L3_R2_001_iXCMrktKyEh0.fastq.gz
 
-Parental = P1, P2, P3
+Parental (P1, P2, P3), reads from TruSeq stranded libraries
 
-    Files (3 samples, each with R1 and R2 = forward and reverse):
+    Files (3 samples, each with R1 and R2 = reverse and forward, respectively):
     
     P1_L3_R1_001_9L0tZ86sF4p8.fastq.gz
     P1_L3_R2_001_yd9NfV9WdvvL.fastq.gz
@@ -72,7 +72,7 @@ Data analysis steps
                 2_Map_2_MapReads.slurm
                 2_Map_3_Index_RefGen_samtools.slurm
                 2_Map_4_SAM2BAM.slurm
-    Input:      fastq files, forward and reverse each replicate
+    Input:      fastq files, reverse and forward each replicate
                 Reference genome in fasta format (see above)
     Output:     BAM file for every replicate (sorted and indexed)
                 Text file with the alignment rates (in 2_Map_2_MapReads)
@@ -105,7 +105,7 @@ Data analysis steps
                 4_Quantification_4_Validation.R
     Input:      Meta-assembly GTF
                 Reference genome in fasta format (see above)
-                fastq files, forward and reverse each replicate
+                fastq files, reverse and forward each replicate
     Output:     Transcript and gene level expression tables (abundance.h5)
                 Txt file with total tpm (= 1'000'000) for validation of expression levels
 
@@ -113,7 +113,7 @@ Data analysis steps
     Goal:       Do known/expected genes change as expected?
     Software:   sleuth 0.30.1 (alternative = DESeq2)
                 R 4.2.2
-    Scripts:     5_DiffExpr_2_Gene_Transcript_Map.R
+    Scripts:    5_DiffExpr_2_Gene_Transcript_Map.R
                 5_DiffExpr_3_DifExpr_TransLevel.R
                 5_DiffExpr_4_DifExpr_GeneLevel.R
     Input:      Meta-assembly GTF
@@ -154,8 +154,8 @@ IGV:		    https://igv.org/; https://software.broadinstitute.org/software/igv/
 StringTie:	    https://ccb.jhu.edu/software/stringtie/
 Cufflinks:	    https://cole-trapnell-lab.github.io/cufflinks/
 kallisto:	    https://pachterlab.github.io/kallisto/about.html
-BEDTools:
-CPC 2.0:
+BEDTools:       https://bedtools.readthedocs.io/en/latest/
+CPC 2.0:        http://cpc2.gao-lab.org/
 
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
 sleuth:		    https://pachterlab.github.io/sleuth/about

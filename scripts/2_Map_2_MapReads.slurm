@@ -26,18 +26,19 @@ ref_idx=${ref_idx_dir}/${genome_name}
     # $ref_idx means the basename of the index files. By default, the index files are named NAME.1.ht2 where we need to give the basename "NAME" (= $ref_idx)
 cell_line=$1
     # The cell line is given as a parameter to the script
-sample_fwd=${fastq_dir}/${cell_line}*R1*.fastq.gz
-sample_rev=${fastq_dir}/${cell_line}*R2*.fastq.gz
+sample_rev=${fastq_dir}/${cell_line}*R1*.fastq.gz
+sample_fwd=${fastq_dir}/${cell_line}*R2*.fastq.gz
     # $sample_fwd and $sample_rev point to the fasta files to be mapped
+    # NOTE: For TruSeq stranded libraries, the second reads are the transcription strand (fwd)
 sam_out_file=${output_dir}/${cell_line}_hisat2.sam
     # $sam_out_file is just the name (incl. path) we give the sam-file to be written
 
 # Run hisat2 using the reference index created before
-hisat2 -p 8 --dta --rna-strandness RF -x ${ref_idx} -1 ${sample_fwd} -2 ${sample_rev} -S ${sam_out_file}
+hisat2 -p 8 --dta --rna-strandness RF -x ${ref_idx} -1 ${sample_rev} -2 ${sample_fwd} -S ${sam_out_file}
     # Options:
         # ‘-p 8’ denoting the use of 8 threads
         # ‘-–dta’ is used to generate output SAM files tailored for assemblers including StringTie
         # ‘--rna-strandness RF’ specifies strand-specific information.
         # ‘-x’ is used to denote the indexed reference genome
-        # ‘-1’ and ‘-2’ are used to denote our fwd and rev samples in a paired-end alignment
+        # ‘-1’ and ‘-2’ are used to denote our rev and fwd samples in a paired-end alignment
         # ‘-S’ is used to denote that we would like our output in SAM format
