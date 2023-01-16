@@ -41,9 +41,10 @@ Parental = P1, P2, P3
 
 Reference genome
 
-    Human genome version hg38/GRCh38
-    Gencode release 21, comprehensive gene annotation with ALL regions
-    https://www.gencodegenes.org/human/release_21.html
+    Human genome, version GRCh38, GENCODE release 21; https://www.gencodegenes.org/human/release_21.html
+    - Comprehensive gene annotation with ALL regions in GTF format
+    - Genome sequence (GRCh38) with ALL regions in fasta format
+    
 
 
 --- --- --- --- --- --- --- --- --- ---
@@ -112,7 +113,7 @@ Data analysis steps
     Goal:       Do known/expected genes change as expected?
     Software:   sleuth 0.30.1 (alternative = DESeq2)
                 R 4.2.2
-    Script:     5_DiffExpr_2_Gene_Transcript_Map.R
+    Scripts:     5_DiffExpr_2_Gene_Transcript_Map.R
                 5_DiffExpr_3_DifExpr_TransLevel.R
                 5_DiffExpr_4_DifExpr_GeneLevel.R
     Input:      Meta-assembly GTF
@@ -123,9 +124,15 @@ Data analysis steps
     Goal:       How good are the 5’ and 3’ annotations of your transcripts?
                 What percent of your novel transcripts are protein coding?
                 How many novel “intergenic” genes have you identified?
-    Software:   CPAT or CPCs
-    Script:
-    Input: 
+    Software:   R 4.2.2
+                BEDTools 2.29.2
+                CPC 2.0
+    Scripts:    6_IntAn_1_CreateBed.R
+                6_IntAn_2_Find_TSS_PolyA.slurm
+                6_IntAn_3_Find_intergenic.slurm
+                6_IntAn_4_ProtCodPot.slurm
+    Input:      Meta-assembly GTF
+                BED references for polyA and TSS
     Output:     Statistics and plots addressing key questions
 
 7)  Prioritization (Optional)
@@ -147,9 +154,13 @@ IGV:		    https://igv.org/; https://software.broadinstitute.org/software/igv/
 StringTie:	    https://ccb.jhu.edu/software/stringtie/
 Cufflinks:	    https://cole-trapnell-lab.github.io/cufflinks/
 kallisto:	    https://pachterlab.github.io/kallisto/about.html
+BEDTools:
+CPC 2.0:
 
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
 sleuth:		    https://pachterlab.github.io/sleuth/about
 
 Overview over all kinds of bioinformatics software, including most of the above:
 https://bioinformaticshome.com/
+Overview over software on the ibu cluster:
+https://www.vital-it.ch/
