@@ -5,8 +5,8 @@ library(rtracklayer)
 
 ############ Load the merged assembly gtf and put in data frame
 
-merged_assembly_in <- rtracklayer::import("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
-merged_assembly <- as.data.frame(merged_assembly_in)
+merged_assembly_gtf <- rtracklayer::import("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
+merged_assembly <- as.data.frame(merged_assembly_gtf)
 
 
 ############ Create functions to find the interesting values
@@ -39,8 +39,9 @@ log2_and_qval <- function(id, test_table = wt_table){
 
 
 ### Find the protein coding potential
+prot_coding_table <- as.data.frame(read.table("../6_IntAn_3_ProtCodPot/cpat_out", header = TRUE, sep="\t"))
 prot_coding_pot <- function(id){
-  return(1000)
+  return(prot_coding_table[id,]$coding_prob)
 }
 
 
@@ -81,7 +82,7 @@ results[,c("Num_Exons", "log2_fold_change", "q_val", "prot_coding_pot", "TSS", "
 num_transcripts <- length(results$transcript_id)
 
 # Look up and add the values for all transcripts
-for(idx in seq(50000, num_transcripts)){
+for(idx in seq(1, num_transcripts)){
   id <- results$transcript_id[idx]
   
   results$Num_Exons[idx] <- num_exons(id)
@@ -118,15 +119,30 @@ for(t in intergenic_transcripts){
 sum(results$Intergenic) == length(intergenic_transcripts)
 
 
-############ Write, filter and read the results 
+############ Write, filter and read the results
 
-# Write the results into a file (or read from a saved file, so it doesn't have to compute everything again)
+### Write the results into a file (or read from a saved file, so it doesn't have to compute everything again)
 write.csv(results, file = "../7_Summary/results_all.csv", row.names = FALSE)
-# results_in <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
+# results <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
 
-# Filter the results for the most interesting entries and write them into a file (or read from a saved file)
-log2_fold_threshold <- 3
+### Filter the results for the most interesting entries and write them into a file (or read from a saved file)
+log2_fold_threshold <- 2
 q_val_threshold <- 0.05
-results_filtered <- results %>% filter(Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+prot_coding_pot_threshold <- 0.364
+
+# For novel and annotated together
+results_filtered <- results %>% filter(prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
 write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.names = FALSE)
-# results_filtered_in <- read.csv(file = "../7_Summary/results_all.csv", row.names = FALSE, header = TRUE)
+# results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
+
+# For novel and annotated separately
+results_filtered_novel <- results %>% filter(is.na(gene_name), prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
+results_filtered_annotated <- results %>% filter(is.na(gene_name) == FALSE, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
+
+
+### Filter and save GTF for those transcripts (for further use...)
+merged_assembly_gtf_filtered <- merged_assembly_gtf[which(merged_assembly_gtf$transcript_id %in% results_filtered$transcript_id),]
+# merged_assembly_filtered_df <- as.data.frame(merged_assembly_filtered)
+rtracklayer::export(merged_assembly_gtf_filtered, "../7_Summary/merged_assembly_filtered.gtf")
