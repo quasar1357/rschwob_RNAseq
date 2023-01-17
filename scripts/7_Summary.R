@@ -136,7 +136,7 @@ write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.name
 # results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
 
 # For novel and annotated separately
-results_filtered_novel <- results %>% filter(is.na(gene_name), prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+results_filtered_novel <- results %>% filter(is.na(gene_name), prot_coding_pot < prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
 write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
 results_filtered_annotated <- results %>% filter(is.na(gene_name) == FALSE, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
 write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
