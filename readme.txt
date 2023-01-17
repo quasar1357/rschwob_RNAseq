@@ -140,10 +140,14 @@ Data analysis steps
     Output:     Statistics and plots addressing key questions
 
 7)  Prioritization (Optional)
-    Goal:       How would you prioritize your data to provide her with a ranked list of candidates?
-    Software:   Not done
-    Script:     Not done
-    Input:      Not done
+    Goal:       How would you prioritize your data to provide it with a ranked list of candidates?
+    Software:   R 4.2.2
+    Script:     7_Summary.R
+    Input:      Merged meta-assembly GTF
+                DiffExrp tables
+                TSS, polyA and intergenic tables
+                Protein coding potential table
+                (Reference genome in gtf format)
     Output:     Ranked list of gene candidates
 
 
