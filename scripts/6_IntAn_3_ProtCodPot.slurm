@@ -13,10 +13,13 @@
 module load SequenceAnalysis/GenePrediction/cpat/1.2.4
 
 course_dir=/data/courses/rnaseq_course/lncRNAs/Project1/users/rschwob
-input=${course_dir}/results/6_IntAn_3_ProtCodPot/merged_assembly.bed
+# input=${course_dir}/results/6_IntAn_3_ProtCodPot/merged_assembly_filtered.bed
+# input=${course_dir}/results/6_IntAn_3_ProtCodPot/merged_assembly.bed
+input=${course_dir}/results/4_Quantification_1_Create_RefTrans/ref_transcriptome.fasta
 reference=${course_dir}/references/GRCh38.genome.fa
-output=${course_dir}/results/6_IntAn_3_ProtCodPot/cpat_out.tab
+output=${course_dir}/results/6_IntAn_3_ProtCodPot/cpat_out
 hexamers=${course_dir}/results/6_IntAn_3_ProtCodPot/Human_Hexamer.tsv
 logitModel=${course_dir}/results/6_IntAn_3_ProtCodPot/Human_logitModel.RData
 
 cpat.py -g ${input} -r ${reference} -o ${output} -x ${hexamers} -d ${logitModel}
+
