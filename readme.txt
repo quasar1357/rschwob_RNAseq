@@ -133,6 +133,7 @@ Data analysis steps
                 CPC 2.0
     Scripts:    6_IntAn_1_CreateBed.R
                 6_IntAn_2_Find_TSS_PolyA_intergenic.slurm
+                6_IntAn_3_CreateBed.R
                 6_IntAn_3_ProtCodPot.slurm
     Input:      Merged meta-assembly GTF
                 BED references for polyA and TSS
