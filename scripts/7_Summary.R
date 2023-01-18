@@ -134,6 +134,11 @@ prot_coding_pot_threshold <- 0.364
 results_filtered <- results %>% filter(prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
 write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.names = FALSE)
 # results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
+coding <- sum(results$prot_coding_pot > prot_coding_pot_threshold)
+non_coding <- sum(results$prot_coding_pot <= prot_coding_pot_threshold)
+total <- coding + non_coding
+coding_perc <- 100 * coding / total
+non_coding_perc <- 100 * non_coding / total
 
 # For novel and annotated separately
 results_filtered_novel <- results %>% filter(is.na(gene_name), prot_coding_pot < prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
