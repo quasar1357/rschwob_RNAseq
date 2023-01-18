@@ -164,7 +164,8 @@ StringTie:	    https://ccb.jhu.edu/software/stringtie/
 Cufflinks:	    https://cole-trapnell-lab.github.io/cufflinks/
 kallisto:	    https://pachterlab.github.io/kallisto/about.html
 BEDTools:       https://bedtools.readthedocs.io/en/latest/
-CPC 2.0:        http://cpc2.gao-lab.org/
+CPAT 1.2.4:     https://rna-cpat.sourceforge.net/
+(CPAT 3         https://cpat.readthedocs.io/en/latest/)
 
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
 sleuth:		    https://pachterlab.github.io/sleuth/about
