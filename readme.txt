@@ -130,10 +130,9 @@ Data analysis steps
                 What percent of your novel transcripts are protein coding?
     Software:   R 4.2.2
                 BEDTools 2.29.2
-                CPAT 1.2.4 (or CPC 2.0)
+                CPAT 1.2.4 (alternative = CPC 2.0)
     Scripts:    6_IntAn_1_CreateBed.R
                 6_IntAn_2_Find_TSS_PolyA_intergenic.slurm
-                6_IntAn_3_CreateBed.R
                 6_IntAn_3_ProtCodPot.slurm
     Input:      Merged meta-assembly GTF
                 BED references for polyA and TSS
