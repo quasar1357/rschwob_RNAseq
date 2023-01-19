@@ -143,7 +143,8 @@ Data analysis steps
 7)  Prioritization (Optional)
     Goal:       How would you prioritize your data to provide it with a ranked list of candidates?
     Software:   R 4.2.2
-    Script:     7_Summary.R
+    Script:     7_1_Create_Summary.R
+                7_2_Analyse_Results.R
     Input:      Merged meta-assembly GTF
                 DiffExrp tables
                 TSS, polyA and intergenic tables

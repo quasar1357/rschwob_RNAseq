@@ -45,7 +45,7 @@ prot_coding_pot <- function(id){
 }
 
 
-### Check if the transcript has a TSS, polyA tail or if it is intergenic
+### Check if the transcript has a TSS, polyA tail and if it is intergenic
 TSS_table <- as.data.frame(read.table("../6_IntAn_2_Find_TSS_PolyA_intergenic/TSS_intersect.tsv", header = FALSE, sep="\t"))
 TSS_transcripts <- TSS_table[,4]
   
@@ -72,7 +72,7 @@ is_intergenic <- function(id){
 
 # For the results, we filter the merged assembly for all transcripts and take only the columns we're interested in
 results <- merged_assembly %>% filter(type == "transcript")
-results <- results %>% select(transcript_id, gene_id, gene_name)
+results <- results %>% select(transcript_id, gene_id, gene_name, width)
 
 # Check for uniquness of each entry of transcript ID
 length(results$transcript_id) == length(unique(results$transcript_id))
@@ -119,35 +119,33 @@ for(t in intergenic_transcripts){
 sum(results$Intergenic) == length(intergenic_transcripts)
 
 
-############ Write, filter and read the results
+############ Write, filter (and read) the results
 
 ### Write the results into a file (or read from a saved file, so it doesn't have to compute everything again)
 write.csv(results, file = "../7_Summary/results_all.csv", row.names = FALSE)
 # results <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
 
 ### Filter the results for the most interesting entries and write them into a file (or read from a saved file)
+width_threshold <- 200
 log2_fold_threshold <- 2
-q_val_threshold <- 0.05
+q_val_threshold <- 0.025 # Because we are testing 2-sided! This mean the significance level is 0.05 
 prot_coding_pot_threshold <- 0.364
 
+
 # For novel and annotated together
-results_filtered <- results %>% filter(prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+results_filtered <- results %>% filter(Width >= width_threshold, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
 write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.names = FALSE)
 # results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
-coding <- sum(results$prot_coding_pot > prot_coding_pot_threshold)
-non_coding <- sum(results$prot_coding_pot <= prot_coding_pot_threshold)
-total <- coding + non_coding
-coding_perc <- 100 * coding / total
-non_coding_perc <- 100 * non_coding / total
 
 # For novel and annotated separately
-results_filtered_novel <- results %>% filter(is.na(gene_name), prot_coding_pot < prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+results_filtered_novel <- results_filtered %>% filter(is.na(gene_name))
 write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
-results_filtered_annotated <- results %>% filter(is.na(gene_name) == FALSE, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+results_filtered_annotated <- results_filtered %>% filter(is.na(gene_name) == FALSE)
 write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
 
 
 ### Filter and save GTF for those transcripts (for further use...)
-merged_assembly_gtf_filtered <- merged_assembly_gtf[which(merged_assembly_gtf$transcript_id %in% results_filtered$transcript_id),]
+# merged_assembly_gtf_filtered <- merged_assembly_gtf[which(merged_assembly_gtf$transcript_id %in% results_filtered$transcript_id),]
 # merged_assembly_filtered_df <- as.data.frame(merged_assembly_filtered)
-rtracklayer::export(merged_assembly_gtf_filtered, "../7_Summary/merged_assembly_filtered.gtf")
+# rtracklayer::export(merged_assembly_gtf_filtered, "../7_Summary/merged_assembly_filtered.gtf")
+
