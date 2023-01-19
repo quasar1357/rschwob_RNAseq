@@ -130,7 +130,7 @@ Data analysis steps
                 What percent of your novel transcripts are protein coding?
     Software:   R 4.2.2
                 BEDTools 2.29.2
-                CPAT 1.2.4 (alternative = CPC 2.0)
+                CPAT 1.2.4 and CPC 2.0
     Scripts:    6_IntAn_1_CreateBed.R
                 6_IntAn_2_Find_TSS_PolyA_intergenic.slurm
                 6_IntAn_3_ProtCodPot.slurm
@@ -166,6 +166,7 @@ kallisto:	    https://pachterlab.github.io/kallisto/about.html
 BEDTools:       https://bedtools.readthedocs.io/en/latest/
 CPAT 1.2.4:     https://rna-cpat.sourceforge.net/
 (CPAT 3         https://cpat.readthedocs.io/en/latest/)
+CPC 2.0:        https://cpc2.gao-lab.org/
 
 rtracklayer:	https://rdrr.io/bioc/rtracklayer/
 sleuth:		    https://pachterlab.github.io/sleuth/about
