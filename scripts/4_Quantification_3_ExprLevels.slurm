@@ -42,6 +42,6 @@ kallisto quant -i ${reftrans_idx} -o ${cell_line_out_dir} --rf-stranded -b 30 -g
         # "–i": Filename for the indexed reference transcriptome (kallisto index) to be used for quantification
         # "–o": Directory to write output to.
         # "--rf-stranded": Strand specific reads, first read reverse.
-        # "-b 30": Number of bootstrap samples
+        # "-b 30": Number of bootstrap samples (NECESSARY WHEN USED WITH SLEUTH)
         # "–g": GTF file for transcriptome information (merged assembly gtf)
         # "${sample_rev}/${sample_fwd}": file (fastq) of reverse and forward reads.

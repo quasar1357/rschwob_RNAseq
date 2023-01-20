@@ -78,7 +78,7 @@ results <- results %>% select(transcript_id, gene_id, gene_name, width)
 length(results$transcript_id) == length(unique(results$transcript_id))
 
 # Add columns to be filled later
-results[,c("Num_Exons", "log2_fold_change", "q_val", "prot_coding_pot", "TSS", "PolyA", "Intergenic")] <- NA
+results[,c("Num_Exons", "prot_coding_pot", "TSS", "PolyA", "Intergenic", "log2_fold_change", "q_val")] <- NA
 num_transcripts <- length(results$transcript_id)
 
 # Look up and add the values for all transcripts
@@ -138,10 +138,10 @@ write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.name
 # results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
 
 # For novel and annotated separately
-results_filtered_novel <- results_filtered %>% filter(is.na(gene_name))
-write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
-results_filtered_annotated <- results_filtered %>% filter(is.na(gene_name) == FALSE)
-write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
+# results_filtered_novel <- results_filtered %>% filter(is.na(gene_name))
+# write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
+# results_filtered_annotated <- results_filtered %>% filter(is.na(gene_name) == FALSE)
+# write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
 
 
 ### Filter and save GTF for those transcripts (for further use...)

@@ -146,7 +146,7 @@ Data analysis steps
     Script:     7_1_Create_Summary.R
                 7_2_Analyse_Results.R
     Input:      Merged meta-assembly GTF
-                DiffExrp tables
+                DiffExpr tables
                 TSS, polyA and intergenic tables
                 Protein coding potential table
                 (Reference genome in gtf format)
