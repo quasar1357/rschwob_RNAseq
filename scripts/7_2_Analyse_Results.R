@@ -2,7 +2,7 @@
 library(tidyverse)
 library(rtracklayer)
 
-results <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
+results <- read.csv(file = "../results/7_Summary/results_all.csv", header = TRUE)
 
 width_threshold <- 200
 log2_fold_threshold <- 2
@@ -61,8 +61,11 @@ prop_significant_per_quant <- significant / total_quant
 
 
 ### SUMMARIZE AND SAVE ALL THOSE STATISTICS
-results_stats <- data.frame(prop_novel, prop_long, prop_multi_exon, prop_non_coding, prop_TSS, prop_PolyA, prop_Intergenic, prop_high_fold, prop_significant, prop_high_fold_per_quant, prop_significant_per_quant)
-write.csv(results_stats, "../7_Summary/results_stats.csv", row.names = FALSE)
+results_stats_prop <- data.frame(prop_novel, prop_long, prop_multi_exon, prop_non_coding, prop_TSS, prop_PolyA, prop_Intergenic, prop_high_fold, prop_significant, prop_high_fold_per_quant, prop_significant_per_quant)
+write.csv(results_stats, "../results/7_Summary/results_stats_prop.csv", row.names = FALSE)
+
+results_stats <- data.frame(novel, long, multi_exon, non_coding, TSS, PolyA, Intergenic, high_fold, significant)
+write.csv(results_stats, "../results/7_Summary/results_stats.csv", row.names = FALSE)
 
 results_stats_perc <- results_stats * 100
 
@@ -104,6 +107,11 @@ novel <- function(df){
   return(filtered)
 }
 
+annotated <- function(df){
+  filtered <- df %>% filter(!is.na(gene_name))
+  return(filtered)
+}
+
 long <- function(df){
   filtered <- df %>% filter(Width >= width_threshold)
   return(filtered)
@@ -111,6 +119,11 @@ long <- function(df){
 
 multi_exon <- function(df){
   filtered <- df %>% filter(Num_Exons > 1)
+  return(filtered)
+}
+
+single_exon <- function(df){
+  filtered <- df %>% filter(Num_Exons == 1)
   return(filtered)
 }
 
@@ -208,6 +221,12 @@ num(novel(solid_candidates(results)))
 # 433
 perc(novel(solid_candidates(results)))
 # 0.1955586
+num(novel(sign_high(results)))
+# 234
+perc(novel(sign_high(results)))
+# 0.1056829
+perc_quant(novel(sign_high(results)))
+# 0.2964652
 num(novel(sign_high(solid_candidates(results))))
 # 14
 perc(novel(sign_high(solid_candidates(results))))
@@ -215,3 +234,23 @@ perc(novel(sign_high(solid_candidates(results))))
 perc_quant(novel(sign_high(solid_candidates(results))))
 # 0.01773724
 
+num(novel(long(results)))
+# 13106
+num(novel(multi_exon(results)))
+# 12299
+num(novel(non_coding(results)))
+# 2657
+num(novel(tss(results)))
+# 7494
+num(novel(polya(results)))
+# 7009
+num(novel(solid_candidates(results)))
+# 433
+num(novel(intergenic(results)))
+# 1043
+num(novel(high_fold(results)))
+# 824
+num(novel(significant(results)))
+# 1431
+num(novel(sign_high(results)))
+# 234

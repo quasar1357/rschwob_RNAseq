@@ -5,7 +5,7 @@ library(rtracklayer)
 
 ############ Load the merged assembly gtf and put in data frame
 
-merged_assembly_gtf <- rtracklayer::import("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
+merged_assembly_gtf <- rtracklayer::import("../results/3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 merged_assembly <- as.data.frame(merged_assembly_gtf)
 
 
@@ -26,7 +26,7 @@ num_exons <- function(id){
 
 
 ### Find the log2-fold change and the q-value from the Differential Expression tables (on transcript level)
-wt_table <- read.csv(file = "../5_DiffExpr_3_DifExpr_TransLevel/sleuth_wt_transcript.csv", header = TRUE)
+wt_table <- read.csv(file = "../results/5_DiffExpr_3_DifExpr_TransLevel/sleuth_wt_transcript.csv", header = TRUE)
 # lrt_table <- read.csv(file = "../5_DiffExpr_3_DifExpr_TransLevel/sleuth_lrt_transcript.csv", header = TRUE)
 
 log2_and_qval <- function(id, test_table = wt_table){
@@ -39,20 +39,20 @@ log2_and_qval <- function(id, test_table = wt_table){
 
 
 ### Find the protein coding potential
-prot_coding_table <- as.data.frame(read.table("../6_IntAn_3_ProtCodPot/cpat_out", header = TRUE, sep="\t"))
+prot_coding_table <- as.data.frame(read.table("../results/6_IntAn_3_ProtCodPot/cpat_out", header = TRUE, sep="\t"))
 prot_coding_pot <- function(id){
   return(prot_coding_table[id,]$coding_prob)
 }
 
 
 ### Check if the transcript has a TSS, polyA tail and if it is intergenic
-TSS_table <- as.data.frame(read.table("../6_IntAn_2_Find_TSS_PolyA_intergenic/TSS_intersect.tsv", header = FALSE, sep="\t"))
+TSS_table <- as.data.frame(read.table("../results/6_IntAn_2_Find_TSS_PolyA_intergenic/TSS_intersect.tsv", header = FALSE, sep="\t"))
 TSS_transcripts <- TSS_table[,4]
   
-polyA_table <- as.data.frame(read.table("../6_IntAn_2_Find_TSS_PolyA_intergenic/polyA_intersect.tsv", header = FALSE, sep="\t"))
+polyA_table <- as.data.frame(read.table("../results/6_IntAn_2_Find_TSS_PolyA_intergenic/polyA_intersect.tsv", header = FALSE, sep="\t"))
 polyA_transcripts <- polyA_table[,4]
   
-intergenic_table <- as.data.frame(read.table("../6_IntAn_2_Find_TSS_PolyA_intergenic/total_intersect.tsv", header = FALSE, sep="\t"))
+intergenic_table <- as.data.frame(read.table("../results/6_IntAn_2_Find_TSS_PolyA_intergenic/total_intersect.tsv", header = FALSE, sep="\t"))
 intergenic_transcripts <- intergenic_table[,4]
 
 has_TSS <- function(id){
@@ -82,6 +82,7 @@ results[,c("Num_Exons", "prot_coding_pot", "TSS", "PolyA", "Intergenic", "log2_f
 num_transcripts <- length(results$transcript_id)
 
 # Look up and add the values for all transcripts
+# NOTE: this can take a long time to compute and can be done step by step for the different attributes
 for(idx in seq(1, num_transcripts)){
   id <- results$transcript_id[idx]
   
@@ -122,7 +123,7 @@ sum(results$Intergenic) == length(intergenic_transcripts)
 ############ Write, filter (and read) the results
 
 ### Write the results into a file (or read from a saved file, so it doesn't have to compute everything again)
-write.csv(results, file = "../7_Summary/results_all.csv", row.names = FALSE)
+write.csv(results, file = "../results/7_Summary/results_all.csv", row.names = FALSE)
 # results <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
 
 ### Filter the results for the most interesting entries and write them into a file (or read from a saved file)
@@ -134,7 +135,7 @@ prot_coding_pot_threshold <- 0.364
 
 # For novel and annotated together
 results_filtered <- results %>% filter(Width >= width_threshold, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
-write.csv(results_filtered, file = "../7_Summary/results_filtered.csv", row.names = FALSE)
+write.csv(results_filtered, file = "../results/7_Summary/results_filtered.csv", row.names = FALSE)
 # results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
 
 # For novel and annotated separately

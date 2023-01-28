@@ -1,9 +1,9 @@
+# load packages
 library(tidyverse)
 library(rtracklayer)
 
-############ Define functions to load, filter and analyze a (merged meta assembly) GTF file
-
-load_df_gtf <- function(gtf_path){
+# Load merged assembly GTF and convert it to a data frame
+load_filter_gtf <- function(gtf_path){
   # Load GTF and convert it to a data frame
   gtf_in <- rtracklayer::import(gtf_path)
   gtf_df <- as.data.frame(gtf_in)
@@ -64,17 +64,9 @@ num <- function(input){
   }
 }
 
-############ Analyse Meta Assembly
+############ Analyze Meta Assembly
 
-gtf <- load_df_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
-
-# Get number of transcripts in the meta-assembly
-num(transcripts(gtf))
-# 221417
-num(transcripts(annotated(gtf)))
-# 208311
-num(transcripts(novel(gtf)))
-# 13106
+gtf <- load_filter_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 
 # Get number of exons in the meta-assembly
 num(exons(gtf))
@@ -83,6 +75,14 @@ num(exons(annotated(gtf)))
 # 1231077
 num(exons(novel(gtf)))
 # 136069
+
+# Get number of transcripts in the meta-assembly
+num(transcripts(gtf))
+# 221417
+num(transcripts(annotated(gtf)))
+# 208311
+num(transcripts(novel(gtf)))
+# 13106
 
 # Get number of transcripts composed of just a single exon
 num_single_exons(gtf)
@@ -97,9 +97,18 @@ num(get_gene_ids(gtf))
 # 62375
 num(get_gene_names(annotated(gtf)))
 # 58646
+# NOTE: num(get_gene_names(gtf)) would include NA and result in 58647
 num(get_gene_names(novel(gtf)))
 # 1 = NA --> sanity check
 num(get_gene_ids(annotated(gtf)))
 # 61105
 num(get_gene_ids(novel(gtf)))
 # 6988
+
+# NOTE: There can be multiple copies of the same (annotated) gene, some might even be partly classified as novel and annotated.
+# Those copies would still get distinct gene IDs in the assembly.
+nov <- novel(gtf)
+annot <- annotated(gtf)
+inter <- intersect(nov$gene_id, annot$gene_id)
+length(inter)
+# 5718 gene_ids were found both in the annotated as well as the novel genes --> therefore the difference to the total

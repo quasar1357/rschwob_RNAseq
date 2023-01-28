@@ -18,12 +18,12 @@ load_df_gtf <- function(gtf_path){
 
 ### 1) Preparations & creating a bed file for the total transcripts
 
-gtf <- load_df_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
+gtf <- load_df_gtf("../results/3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 
 # Filter the gtf data frame for transcripts that were found on a chromosome, select columns for the bed format
 gtf_filtered <- gtf %>% filter(type == "transcript") %>% filter(str_detect(seqnames, "chr")) %>% select(seqnames, start, end, transcript_id, score, strand)
 # Write into a file
-write.table(gtf_filtered, file = "../6_IntAn_1_CreateBed/merged_assembly_TOTAL.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+write.table(gtf_filtered, file = "../results/6_IntAn_1_CreateBed/merged_assembly_TOTAL.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 # Get the plus and minus stranded transcripts
 is_plus <- which(gtf_filtered$strand == "+")
@@ -50,7 +50,7 @@ TSS_bed <- TSS_bed[order(match(TSS_bed$transcript_id, gtf_filtered$transcript_id
 # In case there are any negative entries, they should be changed to 0
 TSS_bed$start[which(TSS_bed$start < 0)] <- 0
 # Write into a file
-write.table(TSS_bed, file = "../6_IntAn_1_CreateBed/merged_assembly_TSS.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+write.table(TSS_bed, file = "../results/6_IntAn_1_CreateBed/merged_assembly_TSS.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 
 ### 3) Create a bed file for the analysis of the polyA.
@@ -73,7 +73,7 @@ polyA_bed <- polyA_bed[order(match(polyA_bed$transcript_id, gtf_filtered$transcr
 # In case there are any negative entries, they should be changed to 0
 polyA_bed$start[which(polyA_bed$start < 0)] <- 0
 # Write into a file
-write.table(polyA_bed, file = "../6_IntAn_1_CreateBed/merged_assembly_polyA.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+write.table(polyA_bed, file = "../results/6_IntAn_1_CreateBed/merged_assembly_polyA.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 
 ############ Adjust/create reference bed files
@@ -87,7 +87,7 @@ polyA_bed_filtered <- polyA_bed %>% filter(str_detect(seqnames, "^[[:digit:]]+")
 polyA_bed_chr <- polyA_bed_filtered 
 polyA_bed_chr$seqnames <- sub("^", "chr", polyA_bed_chr$seqnames)
 # Write into a file
-write.table(polyA_bed_chr, file = "../6_IntAn_1_CreateBed/atlas.clusters.2.0.GRCh38.96_ADAPTED.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+write.table(polyA_bed_chr, file = "../results/6_IntAn_1_CreateBed/atlas.clusters.2.0.GRCh38.96_ADAPTED.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 
 ### 2) Create reference bed file for the analysis of "intergenic" genes
@@ -100,4 +100,4 @@ ref_gtf_filtered <- ref_gtf %>% filter(type == "transcript") %>% filter(str_dete
 # Add an arbitrary score to the bed entries
 ref_gtf_filtered$score <- rep(1000, length.out = nrow(ref_gtf_filtered))
 # Write into a file
-write.table(ref_gtf_filtered, file = "../6_IntAn_1_CreateBed/reference_TOTAL.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+write.table(ref_gtf_filtered, file = "../results/6_IntAn_1_CreateBed/reference_TOTAL.bed", row.names = F, col.names = F, quote = F, sep = "\t")

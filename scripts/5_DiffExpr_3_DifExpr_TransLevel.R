@@ -4,7 +4,7 @@ library(sleuth)
 
 
 # Load prepared, required files
-experiment_info <- read.csv("../5_DiffExpr_1_Experiment_Table/experiment_table.csv")
+experiment_info <- read.csv("../results/5_DiffExpr_1_Experiment_Table/experiment_table.csv")
 
 
 ########## Construct "sleuth object", store information about experiment and details of model
@@ -44,15 +44,21 @@ so_transcript <- sleuth_wt(so_transcript, "conditionparental")
 
 ########## Examine results of test
 
+q_val_threshold <- 0.025
 sleuth_lrt_transcript <- sleuth_results(so_transcript, "reduced:full", "lrt", show_all = FALSE)
-sleuth_lrt_transcript_significant <- filter(sleuth_lrt_transcript, qval <= 0.05)
+sleuth_lrt_transcript_significant <- filter(sleuth_lrt_transcript, qval <= q_val_threshold)
 sleuth_wt_transcript <- sleuth_results(so_transcript, "conditionparental", show_all = TRUE)
-sleuth_wt_transcript_significant <- filter(sleuth_wt_transcript, qval <= 0.05)
+sleuth_wt_transcript_significant <- filter(sleuth_wt_transcript, qval <= q_val_threshold)
+# 7364
 
+fold_threshold <- 2
+# check how many genes were up- or down-regulated with a high/low 2-fold change
+sleuth_wt_transcript_high_fold <- filter(sleuth_wt_transcript, abs(b) >= fold_threshold)
+# 4639
 
 ########## Save into files
 
-out_dir <- "../5_DiffExpr_3_DifExpr_TransLevel"
+out_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
 write.csv(sleuth_lrt_transcript, file = paste0(out_dir, "/sleuth_lrt_transcript.csv"), row.names = FALSE)
 write.csv(sleuth_lrt_transcript_significant, file = paste0(out_dir, "/sleuth_lrt_transcript_significant.csv"), row.names = FALSE)
 write.csv(sleuth_wt_transcript, file = paste0(out_dir, "/sleuth_wt_transcript.csv"), row.names = FALSE)
@@ -63,7 +69,7 @@ sleuth_save(so_transcript, file = paste0(out_dir, "/so_transcript"))
 ########## Create plots
 
 # Read in the sleuth object (only necessary if not done in same session and don't want to run everything again)
-in_dir <- "../5_DiffExpr_3_DifExpr_TransLevel"
+in_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
 so_transcript <- sleuth_load(paste0(in_dir, "/so_transcript"))
 
 # Show sleuth live (tool for plots)

@@ -5,8 +5,8 @@ library(sleuth)
 
 
 # Load prepared, required files
-experiment_info <- read.csv("../5_DiffExpr_1_Experiment_Table/experiment_table.csv")
-gene_transcript_map <- read.csv(file = "../5_DiffExpr_2_Gene_Transcript_Map/gene_transcript_map.csv")
+experiment_info <- read.csv("../results/5_DiffExpr_1_Experiment_Table/experiment_table.csv")
+gene_transcript_map <- read.csv(file = "../results/5_DiffExpr_2_Gene_Transcript_Map/gene_transcript_map.csv")
 
 
 ########## Construct "sleuth object", store information about experiment and details of model
@@ -59,15 +59,21 @@ so_gene <- sleuth_wt(so_gene, "conditionparental")
 
 ########## Examine results of test
 
+q_val_threshold <- 0.025
 sleuth_lrt_gene <- sleuth_results(so_gene, "reduced:full", "lrt", show_all = FALSE)
-sleuth_lrt_gene_significant <- filter(sleuth_lrt_gene, qval <= 0.05)
+sleuth_lrt_gene_significant <- filter(sleuth_lrt_gene, qval <= q_val_threshold)
 sleuth_wt_gene <- sleuth_results(so_gene, "conditionparental", show_all = TRUE)
-sleuth_wt_gene_significant <- filter(sleuth_wt_gene, qval <= 0.05)
+sleuth_wt_gene_significant <- filter(sleuth_wt_gene, qval <= q_val_threshold)
+# 5710
 
+fold_threshold <- 2
+# check how many genes were up- or down-regulated with a high/low 2-fold change
+sleuth_wt_gene_high_fold <- filter(sleuth_wt_gene, abs(b) >= fold_threshold)
+# 778
 
 ########## Save into files
 
-out_dir <- "../5_DiffExpr_4_DifExpr_GeneLevel"
+out_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
 write.csv(sleuth_lrt_gene, file = paste0(out_dir, "/sleuth_lrt_gene.csv"), row.names = FALSE)
 write.csv(sleuth_lrt_gene_significant, file = paste0(out_dir, "/sleuth_lrt_gene_significant.csv"), row.names = FALSE)
 write.csv(sleuth_wt_gene, file = paste0(out_dir, "/sleuth_wt_gene.csv"), row.names = FALSE)
@@ -78,7 +84,7 @@ sleuth_save(so_gene, file = paste0(out_dir, "/so_gene"))
 ########## Create plots
 
 # Read in the sleuth object (only necessary if not done in same session and don't want to run everything again)
-in_dir <- "../5_DiffExpr_4_DifExpr_GeneLevel"
+in_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
 so_gene <- sleuth_load(paste0(in_dir, "/so_gene"))
 
 # Show sleuth live (tool for plots)
