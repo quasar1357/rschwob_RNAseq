@@ -73,7 +73,7 @@ sleuth_wt_gene_high_fold <- filter(sleuth_wt_gene, abs(b) >= fold_threshold)
 
 ########## Save into files
 
-out_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
+out_dir <- "../results/5_DiffExpr_4_DiffExpr_GeneLevel"
 write.csv(sleuth_lrt_gene, file = paste0(out_dir, "/sleuth_lrt_gene.csv"), row.names = FALSE)
 write.csv(sleuth_lrt_gene_significant, file = paste0(out_dir, "/sleuth_lrt_gene_significant.csv"), row.names = FALSE)
 write.csv(sleuth_wt_gene, file = paste0(out_dir, "/sleuth_wt_gene.csv"), row.names = FALSE)
@@ -84,7 +84,7 @@ sleuth_save(so_gene, file = paste0(out_dir, "/so_gene"))
 ########## Create plots
 
 # Read in the sleuth object (only necessary if not done in same session and don't want to run everything again)
-in_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
+in_dir <- "../results/5_DiffExpr_4_DiffExpr_GeneLevel"
 so_gene <- sleuth_load(paste0(in_dir, "/so_gene"))
 
 # Show sleuth live (tool for plots)
@@ -93,7 +93,7 @@ sleuth_live(so_gene)
 
 ########## Read in the raw data (only needed to analyse if don't want to rerun the whole script)
 
-# in_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
+# in_dir <- "../results/5_DiffExpr_4_DiffExpr_GeneLevel"
 # sleuth_lrt_gene <- read.csv(file = paste0(in_dir, "/sleuth_lrt_gene.csv"))
 # sleuth_lrt_gene_significant <- read.csv(file = paste0(in_dir, "/sleuth_lrt_gene_significant.csv"))
 # sleuth_wt_gene <- read.csv(file = paste0(in_dir, "/sleuth_wt_gene.csv"))

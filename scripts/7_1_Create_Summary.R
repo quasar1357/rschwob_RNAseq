@@ -26,8 +26,8 @@ num_exons <- function(id){
 
 
 ### Find the log2-fold change and the q-value from the Differential Expression tables (on transcript level)
-wt_table <- read.csv(file = "../results/5_DiffExpr_3_DifExpr_TransLevel/sleuth_wt_transcript.csv", header = TRUE)
-# lrt_table <- read.csv(file = "../results/5_DiffExpr_3_DifExpr_TransLevel/sleuth_lrt_transcript.csv", header = TRUE)
+wt_table <- read.csv(file = "../results/5_DiffExpr_3_DiffExpr_TransLevel/sleuth_wt_transcript.csv", header = TRUE)
+# lrt_table <- read.csv(file = "../results/5_DiffExpr_3_DiffExpr_TransLevel/sleuth_lrt_transcript.csv", header = TRUE)
 
 log2_and_qval <- function(id, test_table = wt_table){
   entry <- test_table[test_table$target_id == id,]

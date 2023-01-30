@@ -58,7 +58,7 @@ sleuth_wt_transcript_high_fold <- filter(sleuth_wt_transcript, abs(b) >= fold_th
 
 ########## Save into files
 
-out_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
+out_dir <- "../results/5_DiffExpr_3_DiffExpr_TransLevel"
 write.csv(sleuth_lrt_transcript, file = paste0(out_dir, "/sleuth_lrt_transcript.csv"), row.names = FALSE)
 write.csv(sleuth_lrt_transcript_significant, file = paste0(out_dir, "/sleuth_lrt_transcript_significant.csv"), row.names = FALSE)
 write.csv(sleuth_wt_transcript, file = paste0(out_dir, "/sleuth_wt_transcript.csv"), row.names = FALSE)
@@ -69,7 +69,7 @@ sleuth_save(so_transcript, file = paste0(out_dir, "/so_transcript"))
 ########## Create plots
 
 # Read in the sleuth object (only necessary if not done in same session and don't want to run everything again)
-in_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
+in_dir <- "../results/5_DiffExpr_3_DiffExpr_TransLevel"
 so_transcript <- sleuth_load(paste0(in_dir, "/so_transcript"))
 
 # Show sleuth live (tool for plots)
@@ -78,7 +78,7 @@ sleuth_live(so_transcript)
 
 ########## Read in the raw data (only needed to analyse if don't want to rerun the whole script)
 
-# in_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
+# in_dir <- "../results/5_DiffExpr_3_DiffExpr_TransLevel"
 # sleuth_lrt_transcript <- read.csv(file = paste0(in_dir, "/sleuth_lrt_transcript.csv"))
 # sleuth_lrt_transcript_significant <- read.csv(file = paste0(in_dir, "/sleuth_lrt_transcript_significant.csv"))
 # sleuth_wt_transcript <- read.csv(file = paste0(in_dir, "/sleuth_wt_transcript.csv"))

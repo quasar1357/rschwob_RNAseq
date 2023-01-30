@@ -117,8 +117,8 @@ Data analysis steps
     Software:   sleuth 0.30.1 (alternative = DESeq2)
                 R 4.2.2
     Scripts:    5_DiffExpr_2_Gene_Transcript_Map.R
-                5_DiffExpr_3_DifExpr_TransLevel.R
-                5_DiffExpr_4_DifExpr_GeneLevel.R
+                5_DiffExpr_3_DiffExpr_TransLevel.R
+                5_DiffExpr_4_DiffExpr_GeneLevel.R
     Input:      Absolute expression tables (abundance.h5 from kallisto)
                 (Meta-assembly GTF for gene-transcript map)
     Output:     Transcript and gene level differential expression tables & plots
