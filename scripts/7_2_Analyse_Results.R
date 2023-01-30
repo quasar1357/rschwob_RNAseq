@@ -48,13 +48,13 @@ Intergenic <- sum(results$Intergenic)
 prop_Intergenic <- Intergenic / total
 
 ### Get proportion outside the log2_fold_change threshold (if we choose 2, it would mean: -2 > log_2_fold > 2)
-# NOTE: here, we want to exclude the NAs, so the transcripts that could not have been evaluated in the analysis
+# NOTE: here, we might want to exclude the NAs, so the transcripts that could not have been evaluated in the analysis
 high_fold <- sum(results$log2_fold_change < -log2_fold_threshold | results$log2_fold_change > log2_fold_threshold, na.rm = TRUE)
 prop_high_fold <- high_fold / total
 prop_high_fold_per_quant <- high_fold / total_quant
 
 ### Get proportion significant vs. non-significant (here with q_val <= 0.05)
-# NOTE: here, we want to exclude the NAs, so the transcripts that could not have been evaluated in the analysis
+# NOTE: here, we might want to exclude the NAs, so the transcripts that could not have been evaluated in the analysis
 significant <- sum(results$q_val <= q_val_threshold, na.rm = TRUE)
 prop_significant <- significant / total
 prop_significant_per_quant <- significant / total_quant
@@ -170,7 +170,7 @@ sign_high <- function(df){
 
 ########## Find numbers for combinations of interest
 
-# NOTE: if we use high_fold or significant with prop or perc, we want to use the corrected total that excludes entries that have NA in those columns
+# NOTE: if we use high_fold or significant with prop or perc, we might want to use the total that excludes entries that have NA in those columns
 total <- nrow(results)
 total_quant <- total - sum(is.na(results$log2_fold_change))
 

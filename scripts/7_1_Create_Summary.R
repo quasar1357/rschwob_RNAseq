@@ -27,7 +27,7 @@ num_exons <- function(id){
 
 ### Find the log2-fold change and the q-value from the Differential Expression tables (on transcript level)
 wt_table <- read.csv(file = "../results/5_DiffExpr_3_DifExpr_TransLevel/sleuth_wt_transcript.csv", header = TRUE)
-# lrt_table <- read.csv(file = "../5_DiffExpr_3_DifExpr_TransLevel/sleuth_lrt_transcript.csv", header = TRUE)
+# lrt_table <- read.csv(file = "../results/5_DiffExpr_3_DifExpr_TransLevel/sleuth_lrt_transcript.csv", header = TRUE)
 
 log2_and_qval <- function(id, test_table = wt_table){
   entry <- test_table[test_table$target_id == id,]
@@ -73,6 +73,8 @@ is_intergenic <- function(id){
 # For the results, we filter the merged assembly for all transcripts and take only the columns we're interested in
 results <- merged_assembly %>% filter(type == "transcript")
 results <- results %>% select(transcript_id, gene_id, gene_name, width)
+type <- case_when(is.na(results$gene_name) ~"novel", !is.na(results$gene_name) ~"annotated")
+results <- data.frame(results[,1:3], type, results[,4:ncol(results)])
 
 # Check for uniquness of each entry of transcript ID
 length(results$transcript_id) == length(unique(results$transcript_id))
@@ -124,29 +126,51 @@ sum(results$Intergenic) == length(intergenic_transcripts)
 
 ### Write the results into a file (or read from a saved file, so it doesn't have to compute everything again)
 write.csv(results, file = "../results/7_Summary/results_all.csv", row.names = FALSE)
-# results <- read.csv(file = "../7_Summary/results_all.csv", header = TRUE)
+# results <- read.csv(file = "../results/7_Summary/results_all.csv", header = TRUE)
 
-### Filter the results for the most interesting entries and write them into a file (or read from a saved file)
+### Filter the results for the most interesting entries, rank them and write them into a file (or read from a saved file)
 width_threshold <- 200
 log2_fold_threshold <- 2
 q_val_threshold <- 0.025 # Because we are testing 2-sided! This mean the significance level is 0.05 
 prot_coding_pot_threshold <- 0.364
 
+results_filtered <- results %>% filter(Width >= width_threshold, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+
+# ADD SCORE
+norm_abs <- function(vec){
+  vec_abs <- abs(vec)
+  vec_norm <- (vec_abs - min(vec_abs)) / (max(vec_abs) - min(vec_abs))
+}
+
+fold_norm <- norm_abs(results_filtered$log2_fold_change)
+q_log <- -log10(results_filtered$q_val)
+q_norm <- norm_abs(q_log)
+fold_and_q <- (fold_norm + q_norm) / 2
+fold_and_q_norm <- norm_abs(fold_and_q)
+
+prot_cod_norm <- norm_abs(results_filtered$prot_coding_pot)
+
+score <- fold_and_q_norm - prot_cod_norm
+results_filtered$score <- score
+
+# SORT AND ADD RANK
+results_filtered <- results_filtered %>% arrange(desc(score))
+results_filtered$rank <- 1:nrow(results_filtered)
+results_filtered <- results_filtered  %>% arrange(desc(type))
 
 # For novel and annotated together
-results_filtered <- results %>% filter(Width >= width_threshold, prot_coding_pot <= prot_coding_pot_threshold, Num_Exons > 1, log2_fold_change < -log2_fold_threshold | log2_fold_change > log2_fold_threshold, q_val <= q_val_threshold, TSS == TRUE, PolyA == TRUE)
+# results_filtered <- read.csv(file = "../results/7_Summary/results_filtered.csv", header = TRUE)
 write.csv(results_filtered, file = "../results/7_Summary/results_filtered.csv", row.names = FALSE)
-# results_filtered <- read.csv(file = "../7_Summary/results_filtered.csv", header = TRUE)
 
 # For novel and annotated separately
 # results_filtered_novel <- results_filtered %>% filter(is.na(gene_name))
-# write.csv(results_filtered_novel, file = "../7_Summary/results_filtered_novel.csv", row.names = FALSE)
+# write.csv(results_filtered_novel, file = "../results/7_Summary/results_filtered_novel.csv", row.names = FALSE)
 # results_filtered_annotated <- results_filtered %>% filter(is.na(gene_name) == FALSE)
-# write.csv(results_filtered_annotated, file = "../7_Summary/results_filtered_annotated.csv", row.names = FALSE)
+# write.csv(results_filtered_annotated, file = "../results/7_Summary/results_filtered_annotated.csv", row.names = FALSE)
 
 
 ### Filter and save GTF for those transcripts (for further use...)
 # merged_assembly_gtf_filtered <- merged_assembly_gtf[which(merged_assembly_gtf$transcript_id %in% results_filtered$transcript_id),]
 # merged_assembly_filtered_df <- as.data.frame(merged_assembly_filtered)
-# rtracklayer::export(merged_assembly_gtf_filtered, "../7_Summary/merged_assembly_filtered.gtf")
+# rtracklayer::export(merged_assembly_gtf_filtered, "../results/7_Summary/merged_assembly_filtered.gtf")
 

@@ -93,7 +93,7 @@ sleuth_live(so_gene)
 
 ########## Read in the raw data (only needed to analyse if don't want to rerun the whole script)
 
-# in_dir <- "../5_DiffExpr_4_DifExpr_GeneLevel"
+# in_dir <- "../results/5_DiffExpr_4_DifExpr_GeneLevel"
 # sleuth_lrt_gene <- read.csv(file = paste0(in_dir, "/sleuth_lrt_gene.csv"))
 # sleuth_lrt_gene_significant <- read.csv(file = paste0(in_dir, "/sleuth_lrt_gene_significant.csv"))
 # sleuth_wt_gene <- read.csv(file = paste0(in_dir, "/sleuth_wt_gene.csv"))

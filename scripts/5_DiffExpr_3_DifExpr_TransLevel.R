@@ -78,7 +78,7 @@ sleuth_live(so_transcript)
 
 ########## Read in the raw data (only needed to analyse if don't want to rerun the whole script)
 
-# in_dir <- "../5_DiffExpr_3_DifExpr_TransLevel"
+# in_dir <- "../results/5_DiffExpr_3_DifExpr_TransLevel"
 # sleuth_lrt_transcript <- read.csv(file = paste0(in_dir, "/sleuth_lrt_transcript.csv"))
 # sleuth_lrt_transcript_significant <- read.csv(file = paste0(in_dir, "/sleuth_lrt_transcript_significant.csv"))
 # sleuth_wt_transcript <- read.csv(file = paste0(in_dir, "/sleuth_wt_transcript.csv"))

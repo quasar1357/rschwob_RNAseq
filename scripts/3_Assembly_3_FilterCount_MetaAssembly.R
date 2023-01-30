@@ -66,7 +66,7 @@ num <- function(input){
 
 ############ Analyze Meta Assembly
 
-gtf <- load_filter_gtf("../3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
+gtf <- load_filter_gtf("../results/3_Assembly_2_MergeAssemblies/merged_assembly.gtf")
 
 # Get number of exons in the meta-assembly
 num(exons(gtf))
